@@ -3,478 +3,667 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Journey Yields Crescent</title>
+<title>Journey Yields Crescent — Summer Paradise</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: oklch(97% 0.005 84);
-  --text: oklch(18% 0.01 84);
-  --text-muted: oklch(45% 0.01 84);
-  --accent: oklch(58% 0.15 58);
-  --accent-glow: oklch(65% 0.18 62);
-  --surface: oklch(99% 0.003 84);
-  --border: oklch(90% 0.01 84);
-  --fs-hero: clamp(3.2rem, 8vw, 7rem);
-  --fs-h1: clamp(2rem, 5vw, 3.5rem);
-  --fs-body: clamp(1rem, 2.5vw, 1.15rem);
-  --fs-small: 0.875rem;
+  --sky-top: #87CEEB;
+  --sky-mid: #B0E0F6;
+  --sky-low: #E0F0FF;
+  --ocean-deep: #1a6b8a;
+  --ocean-mid: #2196B3;
+  --ocean-shallow: #4FC3F7;
+  --sand: #f5e6c8;
+  --sand-dark: #e8d5a8;
+  --sun: #FFD54F;
+  --sun-glow: #FFB74D;
+  --coral: #FF7E67;
+  --coral-light: #FFAB91;
+  --palm: #4CAF50;
+  --text: #2c3e50;
+  --text-light: #546e7a;
+  --white: #fffef9;
+  --fs-hero: clamp(2.5rem, 7vw, 5.5rem);
+  --fs-h2: clamp(1.6rem, 3.5vw, 2.4rem);
+  --fs-body: clamp(0.95rem, 2vw, 1.1rem);
+  --fs-small: 0.85rem;
 }
 
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
-  background: var(--bg);
+  font-family: "Quicksand", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--white);
   color: var(--text);
-  line-height: 1.75;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-.serif { font-family: "Noto Serif SC", "Songti SC", "SimSun", serif; }
+.hand { font-family: "Caveat", "KaiTi", cursive; }
 
-/* Grain overlay */
-body::before {
-  content: '';
+/* ============ NAV ============ */
+.nav {
   position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Nav */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: clamp(1rem, 3vw, 2rem);
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: clamp(0.8rem, 2vw, 1.5rem) clamp(1.5rem, 4vw, 3rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  mix-blend-mode: difference;
-  color: #fff;
+  transition: background 0.4s;
 }
-
+.nav.scrolled { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); }
 .nav-logo {
-  font-family: "Noto Serif SC", serif;
-  font-weight: 900;
-  font-size: 1.25rem;
-  letter-spacing: 0.05em;
+  font-family: "Caveat", cursive;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--white);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: color 0.4s;
 }
+.nav.scrolled .nav-logo { color: var(--ocean-deep); text-shadow: none; }
 
 .music-btn {
-  width: 44px; height: 44px;
+  width: 42px; height: 42px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.4);
-  background: transparent;
+  border: 2px solid rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s;
   color: #fff;
 }
-.music-btn:hover { border-color: #fff; transform: scale(1.05); }
-.music-btn.playing { border-color: var(--accent-glow); background: rgba(255,255,255,0.1); }
+.nav.scrolled .music-btn {
+  border-color: var(--ocean-mid);
+  background: rgba(33,150,179,0.08);
+  color: var(--ocean-mid);
+}
+.music-btn:hover { transform: scale(1.08); }
 .music-btn svg { width: 18px; height: 18px; }
-.music-btn.playing svg { animation: spin 3s linear infinite; }
+.music-btn.playing svg { animation: spin 4s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Hero */
+/* ============ HERO ============ */
 .hero {
   min-height: 100vh;
+  position: relative;
   display: flex;
   align-items: center;
-  padding: clamp(2rem, 8vw, 8rem);
-  position: relative;
+  justify-content: center;
+  padding: 6rem 2rem 4rem;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 35%, var(--sky-low) 65%, var(--ocean-shallow) 90%, var(--ocean-mid) 100%);
   overflow: hidden;
+}
+
+/* Sun */
+.sun {
+  position: absolute;
+  top: 8%;
+  right: 12%;
+  width: clamp(100px, 16vw, 180px);
+  height: clamp(100px, 16vw, 180px);
+  background: radial-gradient(circle at 45% 40%, var(--sun) 10%, var(--sun-glow) 60%, transparent 70%);
+  border-radius: 50%;
+  animation: sunPulse 4s ease-in-out infinite;
+  filter: blur(8px);
+  opacity: 0.8;
+}
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 0.95; }
+}
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  filter: blur(4px);
+}
+.cloud::before, .cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+.cloud-1 {
+  width: 120px; height: 50px;
+  top: 18%; left: 10%;
+  animation: cloudFloat 25s linear infinite;
+}
+.cloud-1::before { width: 60px; height: 60px; top: -30px; left: 20px; }
+.cloud-1::after { width: 80px; height: 55px; top: -20px; left: 50px; }
+.cloud-2 {
+  width: 100px; height: 40px;
+  top: 28%; left: 55%;
+  animation: cloudFloat 30s linear infinite reverse;
+  opacity: 0.6;
+}
+.cloud-2::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+.cloud-2::after { width: 65px; height: 45px; top: -15px; left: 40px; }
+.cloud-3 {
+  width: 80px; height: 35px;
+  top: 12%; left: 75%;
+  animation: cloudFloat 35s linear infinite;
+  opacity: 0.5;
+}
+.cloud-3::before { width: 40px; height: 40px; top: -20px; left: 10px; }
+.cloud-3::after { width: 55px; height: 38px; top: -12px; left: 35px; }
+@keyframes cloudFloat {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(100vw + 200px)); }
+}
+
+/* Waves */
+.waves {
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  z-index: 10;
+  line-height: 0;
+}
+.waves svg { width: 100%; display: block; }
+
+/* Seagulls */
+.seagull {
+  position: absolute;
+  z-index: 5;
+  opacity: 0.7;
+}
+.seagull svg { width: 30px; height: 20px; }
+.seagull-1 { top: 22%; left: 30%; animation: gullGlide 8s ease-in-out infinite; }
+.seagull-2 { top: 15%; left: 50%; animation: gullGlide 10s ease-in-out 3s infinite; transform: scaleX(-1); }
+.seagull-3 { top: 30%; left: 65%; animation: gullGlide 12s ease-in-out 6s infinite; }
+@keyframes gullGlide {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(40px, -15px) rotate(3deg); }
+  50% { transform: translate(80px, 0) rotate(0deg); }
+  75% { transform: translate(40px, -8px) rotate(-2deg); }
 }
 
 .hero-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(3rem, 6vw, 8rem);
-  align-items: center;
+  position: relative;
+  z-index: 20;
+  text-align: center;
+  max-width: 700px;
 }
 
-.hero-text { position: relative; z-index: 2; }
-
-.hero-tag {
+.hero-badge {
+  display: inline-block;
+  padding: 0.35rem 1.2rem;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
   font-size: var(--fs-small);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
   font-weight: 600;
+  color: var(--ocean-deep);
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
 }
 
 .hero-name {
-  font-family: "Noto Serif SC", serif;
+  font-family: "Caveat", "KaiTi", cursive;
   font-size: var(--fs-hero);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.12);
   margin-bottom: 1.5rem;
-  color: var(--text);
 }
 
 .hero-name .highlight {
-  color: var(--accent);
-  position: relative;
-  display: inline-block;
+  display: block;
+  font-size: 1.4em;
+  color: var(--sun);
+  text-shadow: 0 2px 16px rgba(255,183,77,0.4);
+  margin-top: 0.15em;
 }
 
-.hero-name .highlight::after {
-  content: '';
-  position: absolute;
-  bottom: 0.08em;
-  left: -0.04em;
-  right: -0.04em;
-  height: 0.12em;
-  background: var(--accent);
-  border-radius: 0.06em;
-  opacity: 0.3;
-}
-
-.hero-sub {
+.hero-tagline {
   font-size: var(--fs-body);
-  color: var(--text-muted);
-  max-width: 32ch;
-  line-height: 1.8;
+  color: rgba(255,255,255,0.9);
+  max-width: 30ch;
+  margin: 0 auto 2.5rem;
+  font-weight: 500;
 }
 
-.hero-visual {
+.hero-scroll {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.7);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  animation: bounceDown 2s ease-in-out infinite;
+  cursor: pointer;
+}
+.hero-scroll svg { width: 20px; height: 20px; }
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* ============ BEACH STRIP ============ */
+.beach-strip {
   position: relative;
-  aspect-ratio: 3/4;
-  overflow: hidden;
+  background: linear-gradient(180deg, var(--ocean-shallow) 0%, var(--sand) 30%);
+  padding: clamp(4rem, 8vw, 7rem) clamp(2rem, 6vw, 4rem);
+  display: flex;
+  justify-content: center;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.hero-photo-wrapper {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  border-radius: 2px;
-}
-
-.hero-photo-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(15%) contrast(105%);
-  transition: filter 0.6s ease;
-}
-
-.hero-photo-wrapper:hover img {
-  filter: grayscale(0%) contrast(100%);
-}
-
-.hero-accent-line {
-  position: absolute;
-  top: -1rem;
-  right: -1rem;
-  width: 40%;
-  height: 1px;
-  background: var(--accent);
-  transform-origin: right;
-}
-
-.hero-accent-dot {
-  position: absolute;
-  bottom: -0.75rem;
-  left: -0.75rem;
-  width: 1.5rem;
-  height: 1.5rem;
+.beach-photo {
+  width: clamp(180px, 28vw, 280px);
+  height: clamp(180px, 28vw, 280px);
   border-radius: 50%;
-  background: var(--accent);
-  opacity: 0.6;
+  border: 6px solid rgba(255,255,255,0.6);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 2;
 }
 
-/* Fade reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(2rem);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+.beach-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
+.beach-photo:hover img { transform: scale(1.05); }
 
-/* Quote strip */
-.quote-strip {
-  padding: clamp(4rem, 8vw, 8rem);
+.beach-info {
+  max-width: 380px;
+  position: relative;
+  z-index: 2;
+}
+
+.beach-info h2 {
+  font-family: "Caveat", cursive;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.beach-location {
+  font-size: var(--fs-small);
+  color: var(--coral);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.beach-location .loc-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--coral);
+  animation: pulse2 2s ease-in-out infinite;
+}
+@keyframes pulse2 {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.6); }
+}
+
+.beach-bio {
+  font-size: var(--fs-body);
+  color: var(--text-light);
+  line-height: 1.9;
+}
+
+/* ============ QUOTE WAVE ============ */
+.quote-wave {
+  background: var(--sand);
+  padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 6vw, 4rem);
   text-align: center;
   position: relative;
 }
 
-.quote-strip::before {
+.quote-wave::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 4rem;
-  background: var(--border);
+  top: -1px; left: 0; right: 0;
+  height: 60px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C200,0 400,60 600,30 C800,0 1000,60 1200,30 L1200,60 L0,60 Z' fill='%234FC3F7'/%3E%3C/svg%3E") no-repeat top center/cover;
+}
+
+.quote-mark {
+  font-family: "Caveat", cursive;
+  font-size: 6rem;
+  color: var(--coral-light);
+  line-height: 1;
+  opacity: 0.4;
+  margin-bottom: -2rem;
 }
 
 .quote-text {
-  font-family: "Noto Serif SC", serif;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.5;
-  max-width: 28ch;
-  margin: 0 auto 2rem;
+  font-family: "Caveat", "KaiTi", cursive;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600;
   color: var(--text);
+  max-width: 28ch;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+
+.quote-divider {
+  width: 60px;
+  height: 3px;
+  background: var(--coral);
+  border-radius: 3px;
+  margin: 0 auto 1rem;
 }
 
 .quote-author {
   font-size: var(--fs-small);
-  color: var(--text-muted);
+  color: var(--text-light);
+  letter-spacing: 0.1em;
   font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
 }
 
-/* Manifesto */
-.manifesto {
-  padding: 0 clamp(2rem, 8vw, 8rem) clamp(4rem, 8vw, 8rem);
+/* ============ VIBES GRID ============ */
+.vibes {
+  background: var(--white);
+  padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 6vw, 4rem);
+  text-align: center;
 }
 
-.manifesto-grid {
-  max-width: 900px;
-  margin: 0 auto;
+.vibes-title {
+  font-family: "Caveat", cursive;
+  font-size: var(--fs-h2);
+  color: var(--ocean-deep);
+  margin-bottom: 3rem;
+}
+
+.vibes-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(3rem, 6vw, 6rem);
-}
-
-.manifesto-label {
-  font-size: var(--fs-small);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--text-muted);
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
-.manifesto-text {
-  font-family: "Noto Serif SC", serif;
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  line-height: 2;
-  color: var(--text);
-}
-
-.manifesto-text .accent { color: var(--accent); font-weight: 700; }
-
-/* Contact */
-.contact-section {
-  padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 8vw, 8rem);
-  background: var(--surface);
-}
-
-.contact-grid {
-  max-width: 900px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.5rem;
+  max-width: 600px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
 }
 
-.contact-item {
+.vibe-card {
+  padding: 2rem 1rem;
+  border-radius: 20px;
+  background: var(--white);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+  position: relative;
+}
+
+.vibe-card:nth-child(1) { background: linear-gradient(135deg, #FFF9E6, #FFF3C4); }
+.vibe-card:nth-child(2) { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); }
+.vibe-card:nth-child(3) { background: linear-gradient(135deg, #FCE4EC, #F8BBD0); }
+.vibe-card:nth-child(4) { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+
+.vibe-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
+
+.vibe-icon { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+.vibe-label { font-size: var(--fs-small); font-weight: 700; color: var(--text); letter-spacing: 0.05em; }
+
+/* ============ CONTACT ============ */
+.contact {
+  background: linear-gradient(180deg, var(--white) 0%, var(--sand) 100%);
+  padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 6vw, 4rem);
+  text-align: center;
+}
+
+.contact-title {
+  font-family: "Caveat", cursive;
+  font-size: var(--fs-h2);
+  color: var(--coral);
+  margin-bottom: 2.5rem;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  flex-wrap: wrap;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.contact-link {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
+  gap: 0.5rem;
+  padding: 1.25rem 2rem;
+  border-radius: 16px;
   text-decoration: none;
   color: var(--text);
-  transition: all 0.3s ease;
-  position: relative;
-  background: var(--surface);
-  border-radius: 2px;
+  background: var(--white);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  min-width: 120px;
 }
 
-.contact-item:hover {
-  background: var(--text);
-  color: var(--bg);
+.contact-link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
 }
 
-.contact-item .contact-icon {
-  width: 28px; height: 28px;
-  margin-bottom: 0.75rem;
-  transition: transform 0.3s ease;
-}
+.contact-link:nth-child(1):hover { background: #FDF2F8; color: #E1306C; }
+.contact-link:nth-child(2):hover { background: #F0FFF4; color: #38A169; }
+.contact-link:nth-child(3):hover { background: #EBF8FF; color: #3182CE; }
 
-.contact-item:hover .contact-icon { transform: translateY(-2px); }
+.contact-icon { width: 26px; height: 26px; stroke-width: 1.5; }
+.contact-label { font-size: var(--fs-small); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; }
+.contact-value { font-size: var(--fs-body); font-weight: 600; }
 
-.contact-label {
+/* ============ FOOTER ============ */
+.footer {
+  background: var(--sand-dark);
+  padding: clamp(2rem, 4vw, 3rem);
+  text-align: center;
   font-size: var(--fs-small);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
-  color: inherit;
+  color: var(--text-light);
   opacity: 0.6;
 }
 
-.contact-value {
-  font-size: var(--fs-body);
-  font-weight: 600;
-  color: inherit;
-}
-
-/* Footer */
-footer {
-  padding: clamp(2rem, 4vw, 4rem) clamp(2rem, 8vw, 8rem);
-  text-align: center;
-  font-size: var(--fs-small);
-  color: var(--text-muted);
-  opacity: 0.5;
-}
-
-/* Section dividers */
-.section-rule {
-  max-width: 900px;
-  margin: 0 auto;
-  height: 1px;
-  background: var(--border);
+/* ============ SCROLL REVEAL ============ */
+.reveal {
   opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+
+/* Sand particles */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
 }
 
-/* Location badge */
-.location-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: var(--fs-small);
-  color: var(--text-muted);
-  font-weight: 600;
-  padding: 0.25rem 0;
-  margin-top: 2rem;
-}
-
-.location-dot {
-  width: 8px; height: 8px;
+.particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: var(--sand-dark);
   border-radius: 50%;
-  background: var(--accent);
-  animation: pulse-dot 2s ease-in-out infinite;
+  opacity: 0;
+  animation: floatUp 6s ease-in infinite;
 }
 
-@keyframes pulse-dot {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.5); }
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.particle:nth-child(2) { left: 25%; animation-delay: 1.5s; }
+.particle:nth-child(3) { left: 40%; animation-delay: 3s; }
+.particle:nth-child(4) { left: 55%; animation-delay: 0.8s; }
+.particle:nth-child(5) { left: 70%; animation-delay: 2.2s; }
+.particle:nth-child(6) { left: 85%; animation-delay: 4s; }
+.particle:nth-child(7) { left: 18%; animation-delay: 5s; }
+.particle:nth-child(8) { left: 60%; animation-delay: 3.5s; }
+
+@keyframes floatUp {
+  0% { bottom: -10px; opacity: 0; transform: translateX(0) scale(0.5); }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.4; }
+  100% { bottom: 100%; opacity: 0; transform: translateX(40px) scale(1.5); }
 }
 
 @media (max-width: 768px) {
-  .hero-content { grid-template-columns: 1fr; gap: 3rem; }
-  .hero-visual { order: -1; max-width: 280px; aspect-ratio: 1/1; border-radius: 50%; margin: 0 auto; }
-  .hero-photo-wrapper { border-radius: 50%; }
-  .hero-accent-line, .hero-accent-dot { display: none; }
-  .manifesto-grid { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .hero { padding: 6rem 1.5rem 3rem; }
+  .beach-strip { flex-direction: column; text-align: center; gap: 2rem; }
+  .beach-photo { width: 180px; height: 180px; }
+  .beach-info { text-align: center; }
+  .beach-location { justify-content: center; }
+  .seagull { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
+  .cloud, .seagull, .particle { display: none; }
 }
 </style>
 </head>
 <body>
 
-<nav>
-  <span class="nav-logo">JYC</span>
-  <button class="music-btn" id="musicToggle" aria-label="Toggle music">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="5" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-      <path d="M8 18V5l12-2v11"/>
+<!-- Particles -->
+<div class="particles" aria-hidden="true">
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+</div>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <span class="nav-logo">☀ Summer Vibes</span>
+  <button class="music-btn" id="musicBtn" aria-label="音乐开关">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18V5l12-2v13"/>
+      <circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
     </svg>
   </button>
 </nav>
 
-<section class="hero">
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="sun" aria-hidden="true"></div>
+
+  <div class="cloud cloud-1" aria-hidden="true"></div>
+  <div class="cloud cloud-2" aria-hidden="true"></div>
+  <div class="cloud cloud-3" aria-hidden="true"></div>
+
+  <div class="seagull seagull-1" aria-hidden="true">
+    <svg viewBox="0 0 40 20" fill="none" stroke="#fff" stroke-width="2"><path d="M5 15 Q20 2 35 15"/></svg>
+  </div>
+  <div class="seagull seagull-2" aria-hidden="true">
+    <svg viewBox="0 0 40 20" fill="none" stroke="#fff" stroke-width="2"><path d="M5 15 Q20 2 35 15"/></svg>
+  </div>
+  <div class="seagull seagull-3" aria-hidden="true">
+    <svg viewBox="0 0 40 20" fill="none" stroke="#fff" stroke-width="2"><path d="M5 15 Q20 2 35 15"/></svg>
+  </div>
+
   <div class="hero-content">
-    <div class="hero-text">
-      <p class="hero-tag reveal">个人数字领地</p>
-      <h1 class="hero-name reveal reveal-delay-1">
-        Journey<br>
-        <span class="highlight">Yields</span><br>
-        Crescent
-      </h1>
-      <p class="hero-sub reveal reveal-delay-2">
-        去接受平安普通的自己，不以物喜，不以己悲。
-      </p>
-      <div class="location-badge reveal reveal-delay-3">
-        <span class="location-dot"></span>
-        上海 · SHANGHAI
-      </div>
+    <span class="hero-badge">🏄 夏日冲浪手</span>
+    <h1 class="hero-name">
+      Journey<br>
+      <span class="highlight">Yields Crescent</span>
+    </h1>
+    <p class="hero-tagline">不以物喜，不以己悲。在阳光和浪花之间，找到属于自己的节奏。</p>
+    <div class="hero-scroll" onclick="document.getElementById('beach').scrollIntoView({behavior:'smooth'})">
+      <span>往下冲浪</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
     </div>
-    <div class="hero-visual reveal reveal-delay-1">
-      <div class="hero-photo-wrapper">
-        <img src="JYC.jpg" alt="JYC" loading="eager">
-        <span class="hero-accent-line"></span>
-        <span class="hero-accent-dot"></span>
-      </div>
+  </div>
+
+  <div class="waves" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,40 C240,80 480,0 720,30 C960,60 1200,10 1440,40 L1440,120 L0,120 Z" fill="#e0f0ff" opacity="0.6"/>
+      <path d="M0,60 C300,30 600,90 900,50 C1200,10 1350,70 1440,50 L1440,120 L0,120 Z" fill="#4FC3F7" opacity="0.5"/>
+      <path d="M0,80 C200,60 500,100 800,70 C1100,40 1300,80 1440,70 L1440,120 L0,120 Z" fill="#2196B3"/>
+    </svg>
+  </div>
+</section>
+
+<!-- Beach strip -->
+<section class="beach-strip" id="beach">
+  <div class="beach-photo reveal">
+    <img src="JYC.jpg" alt="JYC" loading="lazy">
+  </div>
+  <div class="beach-info">
+    <h2 class="reveal delay-1">Journey Yields Crescent</h2>
+    <div class="beach-location reveal delay-1">
+      <span class="loc-dot"></span> 上海 · SHANGHAI
+    </div>
+    <p class="beach-bio reveal delay-2">
+      清醒自持，温柔且有锋芒。<br>
+      走过漫长独行的路途，<br>
+      所有沉淀与奔赴，<br>
+      终会迎来属于自己的弯月星光。
+    </p>
+  </div>
+</section>
+
+<!-- Quote -->
+<section class="quote-wave">
+  <div class="quote-mark reveal" aria-hidden="true">"</div>
+  <p class="quote-text reveal delay-1">
+    慢慢来，一切皆有回音。<br>
+    像海浪一样，该来的总会来。
+  </p>
+  <div class="quote-divider reveal delay-2"></div>
+  <p class="quote-author reveal delay-2">风犬少年的天空</p>
+</section>
+
+<!-- Vibes -->
+<section class="vibes">
+  <h2 class="vibes-title reveal">☀ 夏日元素</h2>
+  <div class="vibes-grid">
+    <div class="vibe-card reveal">
+      <span class="vibe-icon">🏄</span>
+      <span class="vibe-label">冲浪</span>
+    </div>
+    <div class="vibe-card reveal delay-1">
+      <span class="vibe-icon">🌊</span>
+      <span class="vibe-label">海浪</span>
+    </div>
+    <div class="vibe-card reveal delay-2">
+      <span class="vibe-icon">🌴</span>
+      <span class="vibe-label">棕榈</span>
+    </div>
+    <div class="vibe-card reveal delay-3">
+      <span class="vibe-icon">🐚</span>
+      <span class="vibe-label">贝壳</span>
     </div>
   </div>
 </section>
 
-<section class="quote-strip">
-  <div class="reveal">
-    <p class="quote-text">清醒自持，温柔且有锋芒。<br>走过漫长独行的路途，所有沉淀与奔赴，<br>终会迎来属于自己的弯月星光。</p>
-    <p class="quote-author">— Journey Yields Crescent</p>
-  </div>
-</section>
-
-<div class="section-rule reveal"></div>
-
-<section class="manifesto">
-  <div class="manifesto-grid">
-    <div class="reveal">
-      <p class="manifesto-label">关于</p>
-      <p class="manifesto-text">
-        慢慢来，<span class="accent">一切皆有回音</span>。
-      </p>
-    </div>
-    <div class="reveal reveal-delay-1">
-      <p class="manifesto-label">信念</p>
-      <p class="manifesto-text">
-        风犬少年的天空下，做一个清醒而温柔的人。
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="contact-section" id="contact">
-  <div class="contact-grid">
-    <a href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener" class="contact-item reveal">
-      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+<!-- Contact -->
+<section class="contact" id="contact">
+  <h2 class="contact-title reveal">与我联系</h2>
+  <div class="contact-links">
+    <a href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener" class="contact-link reveal">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/>
       </svg>
       <span class="contact-label">Instagram</span>
       <span class="contact-value">aeo.ju</span>
     </a>
-    <div class="contact-item reveal reveal-delay-1">
-      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <div class="contact-link reveal delay-1">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <path d="M8 10.5h8M8 14h5M6 5h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2z"/>
       </svg>
       <span class="contact-label">微信</span>
       <span class="contact-value">aeo_cn</span>
     </div>
-    <a href="mailto:apero.ju@gmail.com" class="contact-item reveal reveal-delay-2">
-      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <a href="mailto:apero.ju@gmail.com" class="contact-link reveal delay-2">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
         <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
       </svg>
       <span class="contact-label">Email</span>
@@ -483,39 +672,35 @@ footer {
   </div>
 </section>
 
-<footer>
-  <p>&copy; 2026 jujujuhappy.win</p>
+<footer class="footer">
+  &copy; 2026 jujujuhappy.win — Ride the wave 🌊
 </footer>
 
 <audio id="bgm" src="JYC.mp3" loop preload="none"></audio>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-const musicBtn = document.getElementById('musicToggle');
+// Music toggle
+const musicBtn = document.getElementById('musicBtn');
 const bgm = document.getElementById('bgm');
-let isPlaying = false;
-
+let playing = false;
 musicBtn.addEventListener('click', () => {
-  if (isPlaying) {
-    bgm.pause();
-    musicBtn.classList.remove('playing');
-    isPlaying = false;
-  } else {
-    bgm.play().then(() => {
-      musicBtn.classList.add('playing');
-      isPlaying = true;
-    }).catch(() => {});
+  if (playing) { bgm.pause(); musicBtn.classList.remove('playing'); playing = false; }
+  else {
+    bgm.play().then(() => { musicBtn.classList.add('playing'); playing = true; }).catch(() => {});
   }
 });
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 </script>
 
 </body>
