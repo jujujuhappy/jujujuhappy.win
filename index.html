@@ -3,705 +3,656 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Journey Yields Crescent — Summer Paradise</title>
+<title>Journey Yields Crescent — 北海道</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --sky-top: #87CEEB;
-  --sky-mid: #B0E0F6;
-  --sky-low: #E0F0FF;
-  --ocean-deep: #1a6b8a;
-  --ocean-mid: #2196B3;
-  --ocean-shallow: #4FC3F7;
-  --sand: #f5e6c8;
-  --sand-dark: #e8d5a8;
-  --sun: #FFD54F;
-  --sun-glow: #FFB74D;
-  --coral: #FF7E67;
-  --coral-light: #FFAB91;
-  --palm: #4CAF50;
-  --text: #2c3e50;
-  --text-light: #546e7a;
-  --white: #fffef9;
-  --fs-hero: clamp(2.5rem, 7vw, 5.5rem);
-  --fs-h2: clamp(1.6rem, 3.5vw, 2.4rem);
-  --fs-body: clamp(0.95rem, 2vw, 1.1rem);
-  --fs-small: 0.85rem;
+  --snow: #f9f7f4;
+  --snow-deep: #f0ece6;
+  --lavender: #b8a6c4;
+  --lavender-light: #d4c8dc;
+  --lavender-deep: #7a6b8a;
+  --wood: #8b7355;
+  --wood-light: #c4a882;
+  --sage: #7d9b7e;
+  --sage-light: #a8c3a6;
+  --forest: #3d5a40;
+  --ink: #2c2c2c;
+  --ink-light: #5a5a5a;
+  --mist: rgba(255,255,255,0.6);
+  --fs-hero: clamp(2.8rem, 7vw, 5.5rem);
+  --fs-h2: clamp(1.5rem, 3.5vw, 2.2rem);
+  --fs-body: clamp(0.95rem, 2vw, 1.05rem);
+  --fs-small: 0.8rem;
 }
 
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  font-family: "Quicksand", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: var(--white);
-  color: var(--text);
-  line-height: 1.8;
+  font-family: "Noto Sans SC", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--snow);
+  color: var(--ink);
+  line-height: 2;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-.hand { font-family: "Caveat", "KaiTi", cursive; }
+.serif { font-family: "Noto Serif SC", "Songti SC", serif; }
 
-/* ============ NAV ============ */
+/* Snow canvas */
+#snowCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+/* Nav */
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 200;
-  padding: clamp(0.8rem, 2vw, 1.5rem) clamp(1.5rem, 4vw, 3rem);
+  z-index: 100;
+  padding: clamp(1rem, 2.5vw, 1.8rem) clamp(1.5rem, 4vw, 3rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background 0.4s;
+  transition: background 0.5s, box-shadow 0.5s;
 }
-.nav.scrolled { background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); }
+.nav.scrolled {
+  background: rgba(249,247,244,0.88);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+}
 .nav-logo {
-  font-family: "Caveat", cursive;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--white);
-  text-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: color 0.4s;
+  font-family: "Noto Serif SC", serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.15em;
+  transition: opacity 0.5s;
 }
-.nav.scrolled .nav-logo { color: var(--ocean-deep); text-shadow: none; }
+.nav-logo .dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--lavender);
+  margin-left: 4px;
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
 
 .music-btn {
-  width: 42px; height: 42px;
+  width: 40px; height: 40px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.6);
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
+  border: 1.5px solid var(--lavender-light);
+  background: transparent;
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.4s;
-  color: #fff;
+  color: var(--lavender-deep);
 }
-.nav.scrolled .music-btn {
-  border-color: var(--ocean-mid);
-  background: rgba(33,150,179,0.08);
-  color: var(--ocean-mid);
-}
-.music-btn:hover { transform: scale(1.08); }
-.music-btn svg { width: 18px; height: 18px; }
-.music-btn.playing svg { animation: spin 4s linear infinite; }
+.music-btn:hover { border-color: var(--lavender); background: rgba(184,166,196,0.1); }
+.music-btn svg { width: 16px; height: 16px; }
+.music-btn.playing { border-color: var(--sage); background: rgba(125,155,126,0.1); color: var(--sage); }
+.music-btn.playing svg { animation: spin 5s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ============ HERO ============ */
+/* Hero */
 .hero {
   min-height: 100vh;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   padding: 6rem 2rem 4rem;
-  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 35%, var(--sky-low) 65%, var(--ocean-shallow) 90%, var(--ocean-mid) 100%);
+  background: linear-gradient(180deg, 
+    #ece4f0 0%,
+    #e8dfec 15%,
+    #f0ece6 40%,
+    var(--snow) 70%
+  );
   overflow: hidden;
 }
 
-/* Sun */
-.sun {
+/* Mountain silhouette */
+.mountain {
   position: absolute;
-  top: 8%;
-  right: 12%;
-  width: clamp(100px, 16vw, 180px);
-  height: clamp(100px, 16vw, 180px);
-  background: radial-gradient(circle at 45% 40%, var(--sun) 10%, var(--sun-glow) 60%, transparent 70%);
-  border-radius: 50%;
-  animation: sunPulse 4s ease-in-out infinite;
-  filter: blur(8px);
-  opacity: 0.8;
-}
-@keyframes sunPulse {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.08); opacity: 0.95; }
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  height: clamp(180px, 30vw, 320px);
 }
 
-/* Clouds */
-.cloud {
+.mountain svg { width: 100%; height: 100%; display: block; }
+
+/* Mist */
+.mist {
   position: absolute;
-  background: rgba(255,255,255,0.7);
-  border-radius: 50%;
-  filter: blur(4px);
+  bottom: 0; left: 0; right: 0;
+  z-index: 3;
+  height: 60px;
+  background: linear-gradient(180deg, transparent 0%, var(--snow) 100%);
 }
-.cloud::before, .cloud::after {
-  content: '';
+
+/* Lavender field hint */
+.lavender-field {
   position: absolute;
-  background: inherit;
-  border-radius: 50%;
-}
-.cloud-1 {
-  width: 120px; height: 50px;
-  top: 18%; left: 10%;
-  animation: cloudFloat 25s linear infinite;
-}
-.cloud-1::before { width: 60px; height: 60px; top: -30px; left: 20px; }
-.cloud-1::after { width: 80px; height: 55px; top: -20px; left: 50px; }
-.cloud-2 {
-  width: 100px; height: 40px;
-  top: 28%; left: 55%;
-  animation: cloudFloat 30s linear infinite reverse;
+  bottom: 0; left: 0; right: 0;
+  z-index: 1;
+  height: 30%;
   opacity: 0.6;
-}
-.cloud-2::before { width: 50px; height: 50px; top: -25px; left: 15px; }
-.cloud-2::after { width: 65px; height: 45px; top: -15px; left: 40px; }
-.cloud-3 {
-  width: 80px; height: 35px;
-  top: 12%; left: 75%;
-  animation: cloudFloat 35s linear infinite;
-  opacity: 0.5;
-}
-.cloud-3::before { width: 40px; height: 40px; top: -20px; left: 10px; }
-.cloud-3::after { width: 55px; height: 38px; top: -12px; left: 35px; }
-@keyframes cloudFloat {
-  from { transform: translateX(0); }
-  to { transform: translateX(calc(100vw + 200px)); }
-}
-
-/* Waves */
-.waves {
-  position: absolute;
-  bottom: -2px; left: 0; right: 0;
-  z-index: 10;
-  line-height: 0;
-}
-.waves svg { width: 100%; display: block; }
-
-/* Seagulls */
-.seagull {
-  position: absolute;
-  z-index: 5;
-  opacity: 0.7;
-}
-.seagull svg { width: 30px; height: 20px; }
-.seagull-1 { top: 22%; left: 30%; animation: gullGlide 8s ease-in-out infinite; }
-.seagull-2 { top: 15%; left: 50%; animation: gullGlide 10s ease-in-out 3s infinite; transform: scaleX(-1); }
-.seagull-3 { top: 30%; left: 65%; animation: gullGlide 12s ease-in-out 6s infinite; }
-@keyframes gullGlide {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(40px, -15px) rotate(3deg); }
-  50% { transform: translate(80px, 0) rotate(0deg); }
-  75% { transform: translate(40px, -8px) rotate(-2deg); }
 }
 
 .hero-content {
   position: relative;
-  z-index: 20;
+  z-index: 10;
   text-align: center;
-  max-width: 700px;
+  max-width: 640px;
+  padding-bottom: clamp(100px, 20vw, 200px);
 }
 
-.hero-badge {
-  display: inline-block;
-  padding: 0.35rem 1.2rem;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.3);
-  backdrop-filter: blur(10px);
+.hero-pre {
   font-size: var(--fs-small);
-  font-weight: 600;
-  color: var(--ocean-deep);
-  letter-spacing: 0.1em;
-  margin-bottom: 2rem;
+  letter-spacing: 0.35em;
+  color: var(--lavender-deep);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
 }
 
 .hero-name {
-  font-family: "Caveat", "KaiTi", cursive;
+  font-family: "Noto Serif SC", serif;
   font-size: var(--fs-hero);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.04em;
+}
+
+.hero-name .hl {
+  color: var(--lavender);
   font-weight: 700;
-  line-height: 1.15;
-  color: #fff;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.12);
-  margin-bottom: 1.5rem;
 }
 
-.hero-name .highlight {
-  display: block;
-  font-size: 1.4em;
-  color: var(--sun);
-  text-shadow: 0 2px 16px rgba(255,183,77,0.4);
-  margin-top: 0.15em;
-}
-
-.hero-tagline {
+.hero-sub {
   font-size: var(--fs-body);
-  color: rgba(255,255,255,0.9);
-  max-width: 30ch;
-  margin: 0 auto 2.5rem;
-  font-weight: 500;
+  color: var(--ink-light);
+  max-width: 28ch;
+  margin: 0 auto;
+  font-weight: 300;
 }
 
-.hero-scroll {
-  display: inline-flex;
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  color: rgba(255,255,255,0.7);
+  gap: 0.4rem;
+  color: var(--lavender-deep);
   font-size: var(--fs-small);
-  font-weight: 600;
-  animation: bounceDown 2s ease-in-out infinite;
+  animation: fadeFloat 3s ease-in-out infinite;
   cursor: pointer;
+  opacity: 0.7;
 }
-.hero-scroll svg { width: 20px; height: 20px; }
-@keyframes bounceDown {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
+.scroll-hint svg { width: 16px; height: 16px; }
+@keyframes fadeFloat {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.9; transform: translateX(-50%) translateY(6px); }
 }
 
-/* ============ BEACH STRIP ============ */
-.beach-strip {
-  position: relative;
-  background: linear-gradient(180deg, var(--ocean-shallow) 0%, var(--sand) 30%);
+/* Profile section */
+.profile {
   padding: clamp(4rem, 8vw, 7rem) clamp(2rem, 6vw, 4rem);
-  display: flex;
-  justify-content: center;
-  gap: clamp(3rem, 6vw, 6rem);
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.beach-photo {
-  width: clamp(180px, 28vw, 280px);
-  height: clamp(180px, 28vw, 280px);
-  border-radius: 50%;
-  border: 6px solid rgba(255,255,255,0.6);
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
   position: relative;
-  z-index: 2;
+  background: var(--snow);
 }
 
-.beach-photo img {
+.profile-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.profile-photo {
+  width: clamp(160px, 22vw, 220px);
+  height: clamp(160px, 22vw, 220px);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-photo img {
   width: 100%; height: 100%;
   object-fit: cover;
-  transition: transform 0.6s;
-}
-.beach-photo:hover img { transform: scale(1.05); }
-
-.beach-info {
-  max-width: 380px;
-  position: relative;
-  z-index: 2;
+  filter: brightness(0.96);
+  transition: filter 0.5s;
 }
 
-.beach-info h2 {
-  font-family: "Caveat", cursive;
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: var(--text);
+.profile-photo::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1px solid var(--lavender-light);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.profile-text h2 {
+  font-family: "Noto Serif SC", serif;
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  color: var(--ink);
   margin-bottom: 0.5rem;
 }
 
-.beach-location {
+.profile-loc {
   font-size: var(--fs-small);
-  color: var(--coral);
-  font-weight: 700;
+  color: var(--lavender-deep);
   letter-spacing: 0.15em;
-  margin-bottom: 1rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.beach-location .loc-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--coral);
-  animation: pulse2 2s ease-in-out infinite;
-}
-@keyframes pulse2 {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.6); }
+.profile-loc::before {
+  content: '✦';
+  font-size: 0.6rem;
+  color: var(--lavender);
 }
 
-.beach-bio {
+.profile-desc {
   font-size: var(--fs-body);
-  color: var(--text-light);
-  line-height: 1.9;
+  color: var(--ink-light);
+  line-height: 2.1;
+  font-weight: 300;
 }
 
-/* ============ QUOTE WAVE ============ */
-.quote-wave {
-  background: var(--sand);
+/* Quote section */
+.quote-section {
+  background: var(--snow-deep);
   padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 6vw, 4rem);
   text-align: center;
   position: relative;
+  overflow: hidden;
 }
 
-.quote-wave::before {
+.quote-section::before {
   content: '';
   position: absolute;
-  top: -1px; left: 0; right: 0;
-  height: 60px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 C200,0 400,60 600,30 C800,0 1000,60 1200,30 L1200,60 L0,60 Z' fill='%234FC3F7'/%3E%3C/svg%3E") no-repeat top center/cover;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--lavender-light), transparent);
 }
 
-.quote-mark {
-  font-family: "Caveat", cursive;
-  font-size: 6rem;
-  color: var(--coral-light);
-  line-height: 1;
-  opacity: 0.4;
-  margin-bottom: -2rem;
+.quote-ornament {
+  font-size: 3rem;
+  color: var(--lavender-light);
+  margin-bottom: 1rem;
+  opacity: 0.5;
 }
 
 .quote-text {
-  font-family: "Caveat", "KaiTi", cursive;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-family: "Noto Serif SC", serif;
+  font-size: clamp(1.3rem, 2.8vw, 1.8rem);
   font-weight: 600;
-  color: var(--text);
-  max-width: 28ch;
+  color: var(--ink);
+  max-width: 24ch;
   margin: 0 auto 1.5rem;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 .quote-divider {
-  width: 60px;
-  height: 3px;
-  background: var(--coral);
-  border-radius: 3px;
+  width: 40px;
+  height: 2px;
+  background: var(--lavender);
   margin: 0 auto 1rem;
 }
 
-.quote-author {
+.quote-attr {
   font-size: var(--fs-small);
-  color: var(--text-light);
-  letter-spacing: 0.1em;
-  font-weight: 600;
+  color: var(--ink-light);
+  letter-spacing: 0.15em;
+  font-weight: 500;
 }
 
-/* ============ VIBES GRID ============ */
-.vibes {
-  background: var(--white);
-  padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 6vw, 4rem);
+/* Kanji strip */
+.kanji-strip {
+  padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem);
+  display: flex;
+  justify-content: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  flex-wrap: wrap;
+  background: var(--snow);
+}
+
+.kanji-item {
   text-align: center;
+  min-width: 80px;
 }
 
-.vibes-title {
-  font-family: "Caveat", cursive;
-  font-size: var(--fs-h2);
-  color: var(--ocean-deep);
-  margin-bottom: 3rem;
+.kanji-char {
+  font-family: "Noto Serif SC", serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--lavender);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+  opacity: 0.7;
 }
 
-.vibes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1.5rem;
-  max-width: 600px;
-  margin: 0 auto;
+.kanji-reading {
+  font-size: var(--fs-small);
+  color: var(--lavender-deep);
+  letter-spacing: 0.1em;
 }
 
-.vibe-card {
-  padding: 2rem 1rem;
-  border-radius: 20px;
-  background: var(--white);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: default;
-  position: relative;
-}
-
-.vibe-card:nth-child(1) { background: linear-gradient(135deg, #FFF9E6, #FFF3C4); }
-.vibe-card:nth-child(2) { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); }
-.vibe-card:nth-child(3) { background: linear-gradient(135deg, #FCE4EC, #F8BBD0); }
-.vibe-card:nth-child(4) { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
-
-.vibe-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,0.06); }
-
-.vibe-icon { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
-.vibe-label { font-size: var(--fs-small); font-weight: 700; color: var(--text); letter-spacing: 0.05em; }
-
-/* ============ CONTACT ============ */
+/* Contact */
 .contact {
-  background: linear-gradient(180deg, var(--white) 0%, var(--sand) 100%);
   padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 6vw, 4rem);
+  background: var(--snow-deep);
   text-align: center;
 }
 
 .contact-title {
-  font-family: "Caveat", cursive;
+  font-family: "Noto Serif SC", serif;
   font-size: var(--fs-h2);
-  color: var(--coral);
+  font-weight: 600;
+  color: var(--ink);
   margin-bottom: 2.5rem;
 }
 
-.contact-links {
+.contact-grid {
   display: flex;
   justify-content: center;
-  gap: clamp(1.5rem, 4vw, 3rem);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
   flex-wrap: wrap;
-  max-width: 500px;
+  max-width: 550px;
   margin: 0 auto;
 }
 
-.contact-link {
+.contact-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1.25rem 2rem;
-  border-radius: 16px;
+  gap: 0.6rem;
+  padding: 1.5rem 2rem;
   text-decoration: none;
-  color: var(--text);
-  background: var(--white);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-  min-width: 120px;
+  color: var(--ink);
+  background: var(--snow);
+  border-radius: 2px;
+  min-width: 140px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
-.contact-link:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+.contact-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  transition: border-color 0.4s;
 }
 
-.contact-link:nth-child(1):hover { background: #FDF2F8; color: #E1306C; }
-.contact-link:nth-child(2):hover { background: #F0FFF4; color: #38A169; }
-.contact-link:nth-child(3):hover { background: #EBF8FF; color: #3182CE; }
+.contact-card:hover::after { border-color: var(--lavender-light); }
+.contact-card:hover { transform: translateY(-3px); }
 
-.contact-icon { width: 26px; height: 26px; stroke-width: 1.5; }
-.contact-label { font-size: var(--fs-small); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; }
-.contact-value { font-size: var(--fs-body); font-weight: 600; }
+.contact-card svg { width: 22px; height: 22px; color: var(--lavender); }
+.contact-card-label {
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  color: var(--ink-light);
+}
+.contact-card-value {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
 
-/* ============ FOOTER ============ */
+/* Footer */
 .footer {
-  background: var(--sand-dark);
   padding: clamp(2rem, 4vw, 3rem);
   text-align: center;
   font-size: var(--fs-small);
-  color: var(--text-light);
-  opacity: 0.6;
+  color: var(--ink-light);
+  opacity: 0.4;
+  background: var(--snow);
 }
 
-/* ============ SCROLL REVEAL ============ */
+/* Reveal */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.2s; }
-.delay-3 { transition-delay: 0.3s; }
-
-/* Sand particles */
-.particles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-.particle {
-  position: absolute;
-  width: 3px; height: 3px;
-  background: var(--sand-dark);
-  border-radius: 50%;
-  opacity: 0;
-  animation: floatUp 6s ease-in infinite;
-}
-
-.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-.particle:nth-child(2) { left: 25%; animation-delay: 1.5s; }
-.particle:nth-child(3) { left: 40%; animation-delay: 3s; }
-.particle:nth-child(4) { left: 55%; animation-delay: 0.8s; }
-.particle:nth-child(5) { left: 70%; animation-delay: 2.2s; }
-.particle:nth-child(6) { left: 85%; animation-delay: 4s; }
-.particle:nth-child(7) { left: 18%; animation-delay: 5s; }
-.particle:nth-child(8) { left: 60%; animation-delay: 3.5s; }
-
-@keyframes floatUp {
-  0% { bottom: -10px; opacity: 0; transform: translateX(0) scale(0.5); }
-  10% { opacity: 0.4; }
-  90% { opacity: 0.4; }
-  100% { bottom: 100%; opacity: 0; transform: translateX(40px) scale(1.5); }
-}
+.delay-1 { transition-delay: 0.12s; }
+.delay-2 { transition-delay: 0.24s; }
+.delay-3 { transition-delay: 0.36s; }
 
 @media (max-width: 768px) {
-  .beach-strip { flex-direction: column; text-align: center; gap: 2rem; }
-  .beach-photo { width: 180px; height: 180px; }
-  .beach-info { text-align: center; }
-  .beach-location { justify-content: center; }
-  .seagull { display: none; }
+  .profile-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+  }
+  .profile-loc { justify-content: center; }
+  .kanji-strip { gap: 1.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
-  .cloud, .seagull, .particle { display: none; }
+  #snowCanvas { display: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- Particles -->
-<div class="particles" aria-hidden="true">
-  <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
-  <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
-</div>
+<canvas id="snowCanvas"></canvas>
 
-<!-- Nav -->
 <nav class="nav" id="nav">
-  <span class="nav-logo">☀ Summer Vibes</span>
-  <button class="music-btn" id="musicBtn" aria-label="音乐开关">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M9 18V5l12-2v13"/>
-      <circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+  <span class="nav-logo">北海道<span class="dot"></span></span>
+  <button class="music-btn" id="musicBtn" aria-label="音乐">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
     </svg>
   </button>
 </nav>
 
-<!-- Hero -->
 <section class="hero" id="top">
-  <div class="sun" aria-hidden="true"></div>
-
-  <div class="cloud cloud-1" aria-hidden="true"></div>
-  <div class="cloud cloud-2" aria-hidden="true"></div>
-  <div class="cloud cloud-3" aria-hidden="true"></div>
-
-  <div class="seagull seagull-1" aria-hidden="true">
-    <svg viewBox="0 0 40 20" fill="none" stroke="#fff" stroke-width="2"><path d="M5 15 Q20 2 35 15"/></svg>
-  </div>
-  <div class="seagull seagull-2" aria-hidden="true">
-    <svg viewBox="0 0 40 20" fill="none" stroke="#fff" stroke-width="2"><path d="M5 15 Q20 2 35 15"/></svg>
-  </div>
-  <div class="seagull seagull-3" aria-hidden="true">
-    <svg viewBox="0 0 40 20" fill="none" stroke="#fff" stroke-width="2"><path d="M5 15 Q20 2 35 15"/></svg>
-  </div>
-
   <div class="hero-content">
-    <span class="hero-badge">🏄 夏日冲浪手</span>
-    <h1 class="hero-name">
-      Journey<br>
-      <span class="highlight">Yields Crescent</span>
+    <p class="hero-pre reveal">HOKKAIDO</p>
+    <h1 class="hero-name reveal delay-1">
+      清醒<span class="hl">自持</span>
     </h1>
-    <p class="hero-tagline">不以物喜，不以己悲。在阳光和浪花之间，找到属于自己的节奏。</p>
-    <div class="hero-scroll" onclick="document.getElementById('beach').scrollIntoView({behavior:'smooth'})">
-      <span>往下冲浪</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
-    </div>
-  </div>
-
-  <div class="waves" aria-hidden="true">
-    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-      <path d="M0,40 C240,80 480,0 720,30 C960,60 1200,10 1440,40 L1440,120 L0,120 Z" fill="#e0f0ff" opacity="0.6"/>
-      <path d="M0,60 C300,30 600,90 900,50 C1200,10 1350,70 1440,50 L1440,120 L0,120 Z" fill="#4FC3F7" opacity="0.5"/>
-      <path d="M0,80 C200,60 500,100 800,70 C1100,40 1300,80 1440,70 L1440,120 L0,120 Z" fill="#2196B3"/>
-    </svg>
-  </div>
-</section>
-
-<!-- Beach strip -->
-<section class="beach-strip" id="beach">
-  <div class="beach-photo reveal">
-    <img src="JYC.jpg" alt="JYC" loading="lazy">
-  </div>
-  <div class="beach-info">
-    <h2 class="reveal delay-1">Journey Yields Crescent</h2>
-    <div class="beach-location reveal delay-1">
-      <span class="loc-dot"></span> 上海 · SHANGHAI
-    </div>
-    <p class="beach-bio reveal delay-2">
-      清醒自持，温柔且有锋芒。<br>
-      走过漫长独行的路途，<br>
-      所有沉淀与奔赴，<br>
-      终会迎来属于自己的弯月星光。
+    <p class="hero-sub reveal delay-2">
+      Journey Yields Crescent<br>
+      不以物喜，不以己悲。
     </p>
   </div>
+
+  <!-- Mountain silhouette -->
+  <div class="mountain" aria-hidden="true">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path d="M0,320 L0,180 L120,140 L200,160 L260,100 L320,120 L380,80 L440,110 L500,60 L560,100 L620,50 L680,100 L740,40 L800,80 L860,30 L920,70 L980,20 L1040,65 L1100,35 L1160,70 L1200,45 L1260,85 L1320,55 L1380,90 L1440,50 L1440,320 Z" fill="#d4c8dc" opacity="0.4"/>
+      <path d="M0,320 L0,220 L140,180 L240,210 L300,160 L380,200 L440,130 L520,185 L580,120 L650,170 L710,100 L780,160 L840,80 L920,140 L980,70 L1060,130 L1120,60 L1200,115 L1280,65 L1360,110 L1440,55 L1440,320 Z" fill="#c4b8cc" opacity="0.5"/>
+      <path d="M0,320 L0,270 L160,240 L280,265 L360,220 L450,255 L530,200 L620,240 L700,185 L790,225 L870,170 L960,210 L1040,160 L1130,200 L1220,155 L1320,195 L1440,150 L1440,320 Z" fill="#f0ece6" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <div class="mist" aria-hidden="true"></div>
+
+  <div class="scroll-hint" onclick="document.getElementById('profile').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 13l5 5 5-5"/></svg>
+    <span>往下</span>
+  </div>
 </section>
 
-<!-- Quote -->
-<section class="quote-wave">
-  <div class="quote-mark reveal" aria-hidden="true">"</div>
-  <p class="quote-text reveal delay-1">
-    慢慢来，一切皆有回音。<br>
-    像海浪一样，该来的总会来。
-  </p>
-  <div class="quote-divider reveal delay-2"></div>
-  <p class="quote-author reveal delay-2">风犬少年的天空</p>
-</section>
-
-<!-- Vibes -->
-<section class="vibes">
-  <h2 class="vibes-title reveal">☀ 夏日元素</h2>
-  <div class="vibes-grid">
-    <div class="vibe-card reveal">
-      <span class="vibe-icon">🏄</span>
-      <span class="vibe-label">冲浪</span>
+<section class="profile" id="profile">
+  <div class="profile-inner">
+    <div class="profile-photo reveal">
+      <img src="JYC.jpg" alt="JYC" loading="lazy">
     </div>
-    <div class="vibe-card reveal delay-1">
-      <span class="vibe-icon">🌊</span>
-      <span class="vibe-label">海浪</span>
-    </div>
-    <div class="vibe-card reveal delay-2">
-      <span class="vibe-icon">🌴</span>
-      <span class="vibe-label">棕榈</span>
-    </div>
-    <div class="vibe-card reveal delay-3">
-      <span class="vibe-icon">🐚</span>
-      <span class="vibe-label">贝壳</span>
+    <div class="profile-text">
+      <h2 class="reveal delay-1">Journey Yields Crescent</h2>
+      <div class="profile-loc reveal delay-1">上海 · SHANGHAI</div>
+      <p class="profile-desc reveal delay-2">
+        走过漫长独行的路途，<br>
+        温柔且有锋芒。<br>
+        所有沉淀与奔赴，<br>
+        终会迎来属于自己的弯月星光。
+      </p>
     </div>
   </div>
 </section>
 
-<!-- Contact -->
+<section class="quote-section">
+  <div class="quote-ornament reveal">❅</div>
+  <p class="quote-text reveal delay-1">
+    「慢慢来，一切皆有回音。」
+  </p>
+  <div class="quote-divider reveal delay-2"></div>
+  <p class="quote-attr reveal delay-2">风犬少年的天空</p>
+</section>
+
+<section class="kanji-strip">
+  <div class="kanji-item reveal">
+    <div class="kanji-char">静</div>
+    <div class="kanji-reading">静けさ</div>
+  </div>
+  <div class="kanji-item reveal delay-1">
+    <div class="kanji-char">雪</div>
+    <div class="kanji-reading">ゆき</div>
+  </div>
+  <div class="kanji-item reveal delay-2">
+    <div class="kanji-char">月</div>
+    <div class="kanji-reading">つき</div>
+  </div>
+  <div class="kanji-item reveal delay-3">
+    <div class="kanji-char">風</div>
+    <div class="kanji-reading">かぜ</div>
+  </div>
+</section>
+
 <section class="contact" id="contact">
-  <h2 class="contact-title reveal">与我联系</h2>
-  <div class="contact-links">
-    <a href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener" class="contact-link reveal">
-      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+  <h2 class="contact-title reveal">連絡</h2>
+  <div class="contact-grid">
+    <a href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener" class="contact-card reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/>
       </svg>
-      <span class="contact-label">Instagram</span>
-      <span class="contact-value">aeo.ju</span>
+      <span class="contact-card-label">Instagram</span>
+      <span class="contact-card-value">aeo.ju</span>
     </a>
-    <div class="contact-link reveal delay-1">
-      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <div class="contact-card reveal delay-1">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M8 10.5h8M8 14h5M6 5h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2z"/>
       </svg>
-      <span class="contact-label">微信</span>
-      <span class="contact-value">aeo_cn</span>
+      <span class="contact-card-label">微信</span>
+      <span class="contact-card-value">aeo_cn</span>
     </div>
-    <a href="mailto:apero.ju@gmail.com" class="contact-link reveal delay-2">
-      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <a href="mailto:apero.ju@gmail.com" class="contact-card reveal delay-2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
       </svg>
-      <span class="contact-label">Email</span>
-      <span class="contact-value">apero.ju@gmail.com</span>
+      <span class="contact-card-label">Email</span>
+      <span class="contact-card-value">apero.ju@gmail.com</span>
     </a>
   </div>
 </section>
 
 <footer class="footer">
-  &copy; 2026 jujujuhappy.win — Ride the wave 🌊
+  &copy; 2026 jujujuhappy.win
 </footer>
 
 <audio id="bgm" src="JYC.mp3" loop preload="none"></audio>
 
 <script>
-// Nav scroll effect
+// Snowfall
+const canvas = document.getElementById('snowCanvas');
+const ctx = canvas.getContext('2d');
+let flakes = [];
+const maxFlakes = 60;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Flake {
+  constructor() {
+    this.reset(true);
+  }
+  reset(init) {
+    this.x = Math.random() * canvas.width;
+    this.y = init ? Math.random() * canvas.height : -10;
+    this.r = Math.random() * 2.5 + 1;
+    this.opacity = Math.random() * 0.5 + 0.3;
+    this.speed = Math.random() * 0.6 + 0.2;
+    this.wind = Math.random() * 0.4 - 0.2;
+  }
+  update() {
+    this.y += this.speed;
+    this.x += this.wind + Math.sin(this.y * 0.02) * 0.3;
+    if (this.y > canvas.height + 10) { this.y = -10; this.x = Math.random() * canvas.width; }
+    if (this.x > canvas.width + 10) this.x = -10;
+    if (this.x < -10) this.x = canvas.width + 10;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < maxFlakes; i++) flakes.push(new Flake());
+
+function animateSnow() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  flakes.forEach(f => { f.update(); f.draw(); });
+  requestAnimationFrame(animateSnow);
+}
+animateSnow();
+
+// Nav scroll
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
+  nav.classList.toggle('scrolled', window.scrollY > 40);
 });
 
-// Music toggle
+// Music
 const musicBtn = document.getElementById('musicBtn');
 const bgm = document.getElementById('bgm');
 let playing = false;
 musicBtn.addEventListener('click', () => {
   if (playing) { bgm.pause(); musicBtn.classList.remove('playing'); playing = false; }
-  else {
-    bgm.play().then(() => { musicBtn.classList.add('playing'); playing = true; }).catch(() => {});
-  }
+  else { bgm.play().then(() => { musicBtn.classList.add('playing'); playing = true; }).catch(() => {}); }
 });
 
-// Scroll reveal
-const revealObserver = new IntersectionObserver((entries) => {
+// Reveal
+const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
-
 </body>
 </html>
