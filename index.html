@@ -1,460 +1,522 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>私人领地～✨jujujuhappy.win</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body, html {
-            height: 100%;
-            width: 100%;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-            /* 🎨 即刻网页端标志性的极简浅灰蓝背景 */
-            background: #f4f6f9;
-            display: flex;
-            overflow: hidden;
-            position: relative;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journey Yields Crescent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* ================= 🎆 纯 CSS 烟花引擎 ================= */
-        .fireworks-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .firework {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            opacity: 0;
-            animation: fireworkBurst 5s cubic-bezier(0.1, 0.8, 0.1, 1) infinite;
-        }
-        .firework:nth-child(1) { top: 25%; left: 20%; background: #FFE411; animation-delay: 0s; color: #FFE411; }
-        .firework:nth-child(2) { top: 20%; left: 80%; background: #1890ff; animation-delay: 2s; color: #1890ff; }
+:root {
+  --bg: oklch(97% 0.005 84);
+  --text: oklch(18% 0.01 84);
+  --text-muted: oklch(45% 0.01 84);
+  --accent: oklch(58% 0.15 58);
+  --accent-glow: oklch(65% 0.18 62);
+  --surface: oklch(99% 0.003 84);
+  --border: oklch(90% 0.01 84);
+  --fs-hero: clamp(3.2rem, 8vw, 7rem);
+  --fs-h1: clamp(2rem, 5vw, 3.5rem);
+  --fs-body: clamp(1rem, 2.5vw, 1.15rem);
+  --fs-small: 0.875rem;
+}
 
-        @keyframes fireworkBurst {
-            0% { transform: translate3d(0, 40vh, 0) scale(1); opacity: 1; box-shadow: 0 0 0px rgba(255,255,255,0); }
-            30% { transform: translate3d(0, 0, 0) scale(1); opacity: 1; box-shadow: -60px -60px 0 currentColor, 80px -60px 0 currentColor, -60px 80px 0 currentColor, 80px 80px 0 currentColor, 0px -80px 0 currentColor, 0px 80px 0 currentColor; }
-            100% { transform: translate3d(0, 30px, 0) scale(0.2); opacity: 0; box-shadow: -120px -120px 8px rgba(255,255,255,0), 120px -120px 8px rgba(255,255,255,0); }
-        }
+html { scroll-behavior: smooth; font-size: 16px; }
 
-        /* ================= 💛 左侧即刻官方固定导航栏 ================= */
-        .jike-sidebar {
-            width: 68px;
-            height: 100%;
-            background: #ffffff;
-            border-right: 1px solid #e6ebf4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 24px 0;
-            justify-content: space-between;
-            z-index: 100;
-            flex-shrink: 0;
-        }
-        .sidebar-top {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 28px;
-            width: 100%;
-        }
-        .jike-logo {
-            width: 32px;
-            height: 32px;
-            background: #FFE411;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            color: #000000;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(255, 228, 17, 0.3);
-        }
-        .nav-item {
-            width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #475569;
-            cursor: pointer;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-        }
-        .nav-item:hover, .nav-item.active {
-            color: #111827;
-            background: #f4f6f9;
-        }
-        .nav-item.add-btn {
-            background: #FFE411;
-            color: #000000;
-            box-shadow: 0 4px 12px rgba(255, 228, 17, 0.4);
-        }
-        .nav-item.add-btn:hover { background: #f5da00; transform: scale(1.05); }
-        .sidebar-icon { width: 22px; height: 22px; fill: currentColor; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 
-        /* ================= 🎵 右上角全景悬浮黑胶音乐控制器 ================= */
-        .music-player-container {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            z-index: 1000;
-        }
-        .music-toggle-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: 1px solid #e6ebf4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(7, 14, 26, 0.05);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .music-toggle-btn:hover { transform: scale(1.06); background: #fafafa; }
-        .music-icon { width: 18px; height: 18px; fill: #475569; }
-        .music-playing {
-            border-color: #FFE411;
-            box-shadow: 0 0 14px rgba(255, 228, 17, 0.45);
-        }
-        .music-playing .music-icon { fill: #000000; animation: recordRotate 4s linear infinite; }
-        @keyframes recordRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.serif { font-family: "Noto Serif SC", "Songti SC", "SimSun", serif; }
 
-        /* ================= 📱 绝对加固：大页面中央内容容器 ================= */
-        .main-content {
-            flex: 1;
-            width: calc(100% - 68px);
-            height: 100%;
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            overflow-y: auto;
-            padding: 40px 24px;
-            z-index: 10;
-        }
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-        /* 🏢 即刻风主页黄金大卡片 */
-        .jike-main-card {
-            background: #ffffff;
-            width: 100%;
-            max-width: 600px; /* 锁定即刻最佳视效宽度 */
-            border-radius: 24px;
-            border: 1px solid #e6ebf4;
-            box-shadow: 0 12px 40px rgba(7, 14, 26, 0.04);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            /* 🛠️ 双保险核心修复：利用自动外边距强行霸占剩余空间，100%上下左右居中 */
-            margin: auto !important; 
-            animation: jikeCardFadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+/* Nav */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: clamp(1rem, 3vw, 2rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  mix-blend-mode: difference;
+  color: #fff;
+}
 
-        /* 顶部 Banner 区 */
-        .card-banner {
-            width: 100%;
-            height: 160px;
-            background: #060a13 url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=90&w=800&auto=format&fit=crop') no-repeat center center/cover;
-        }
+.nav-logo {
+  font-family: "Noto Serif SC", serif;
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+}
 
-        /* 个人信息主区块 */
-        .profile-header-block {
-            padding: 0 28px 24px 28px;
-            text-align: left;
-            position: relative;
-            border-bottom: 1px solid #f4f6f9;
-        }
+.music-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: transparent;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+.music-btn:hover { border-color: #fff; transform: scale(1.05); }
+.music-btn.playing { border-color: var(--accent-glow); background: rgba(255,255,255,0.1); }
+.music-btn svg { width: 18px; height: 18px; }
+.music-btn.playing svg { animation: spin 3s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-        /* 头像打破边界重叠 */
-        .jike-avatar-wrapper {
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            border: 4px solid #ffffff;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-            overflow: hidden;
-            margin-top: -48px;
-            background: #f1f5f9;
-            margin-bottom: 14px;
-        }
-        .jike-avatar-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: clamp(2rem, 8vw, 8rem);
+  position: relative;
+  overflow: hidden;
+}
 
-        .header-action-btn {
-            position: absolute;
-            top: 16px;
-            right: 28px;
-            padding: 6px 20px;
-            border-radius: 20px;
-            border: 1px solid #cbd5e1;
-            background: #ffffff;
-            color: #475569;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .header-action-btn:hover { background: #f8fafc; color: #111827; }
+.hero-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 8rem);
+  align-items: center;
+}
 
-        .jike-name {
-            font-size: 1.45rem;
-            color: #111827;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+.hero-text { position: relative; z-index: 2; }
 
-        /* 即刻徽章小标签 */
-        .jike-tag-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 12px;
-        }
-        .jike-tag {
-            font-size: 0.78rem;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-weight: 600;
-        }
-        .tag-geo { background: #fdf2f8; color: #db2777; }
-        .tag-work { background: #eff6ff; color: #2563eb; }
-        .tag-star { background: #fef3c7; color: #d97706; }
+.hero-tag {
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
 
-        /* Tab栏 */
-        .jike-tabs {
-            display: flex;
-            gap: 28px;
-            padding: 0 28px;
-            border-bottom: 1px solid #f4f6f9;
-            background: #ffffff;
-        }
-        .jike-tab {
-            padding: 14px 0;
-            font-size: 0.92rem;
-            color: #475569;
-            font-weight: 700;
-            cursor: pointer;
-            position: relative;
-        }
-        .jike-tab.active { color: #111827; }
-        .jike-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: #FFE411;
-            border-radius: 20px;
-        }
+.hero-name {
+  font-family: "Noto Serif SC", serif;
+  font-size: var(--fs-hero);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
 
-        /* ================= 📝 即刻动态流区域 ================= */
-        .jike-feed-list { background: #ffffff; display: flex; flex-direction: column; }
-        .feed-item { padding: 24px; display: flex; gap: 14px; text-align: left; }
-        .feed-avatar { width: 42px; height: 42px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
-        .feed-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .feed-main { flex: 1; }
-        .feed-user-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .feed-user-name { font-weight: 700; color: #111827; font-size: 0.95rem; }
-        .feed-pin { font-size: 0.75rem; color: #ef4444; font-weight: 700; display: flex; align-items: center; gap: 2px; }
-        .feed-time { font-size: 0.78rem; color: #94a3b8; margin-bottom: 10px; }
+.hero-name .highlight {
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+}
 
-        .feed-content { color: #111827; font-size: 0.96rem; line-height: 1.65; margin-bottom: 16px; }
-        .poem-box { margin-top: 12px; padding-left: 12px; border-left: 3px solid #FFE411; color: #4b5563; }
-        .poem-box p { margin-bottom: 4px; }
+.hero-name .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 0.08em;
+  left: -0.04em;
+  right: -0.04em;
+  height: 0.12em;
+  background: var(--accent);
+  border-radius: 0.06em;
+  opacity: 0.3;
+}
 
-        /* 联络工具方块矩阵 */
-        .feed-buttons-matrix { display: flex; gap: 10px; margin-bottom: 16px; width: 100%; }
-        .matrix-btn {
-            flex: 1;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            color: #334155;
-            padding: 11px 0;
-            border-radius: 12px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-        .matrix-btn:hover { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+.hero-sub {
+  font-size: var(--fs-body);
+  color: var(--text-muted);
+  max-width: 32ch;
+  line-height: 1.8;
+}
 
-        /* 即刻标配互动栏 */
-        .feed-interact-bar { display: flex; justify-content: space-between; max-width: 380px; color: #86909c; font-size: 0.82rem; margin-top: 14px; }
-        .interact-item { display: flex; align-items: center; gap: 6px; cursor: pointer; transition: color 0.2s; }
-        .interact-item:hover { color: #111827; }
-        .interact-icon { width: 16px; height: 16px; fill: currentColor; }
+.hero-visual {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
 
-        /* 右下角固定勋章 */
-        .whats-new-badge {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #ffffff;
-            border: 1px solid #e6ebf4;
-            padding: 7px 16px;
-            border-radius: 30px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: #475569;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 16px rgba(7, 14, 26, 0.04);
-            text-decoration: none;
-            z-index: 100;
-        }
-        .whats-new-dot { width: 6px; height: 6px; background: #1890ff; border-radius: 50%; }
+.hero-photo-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
 
-        @keyframes jikeCardFadeIn {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+.hero-photo-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(15%) contrast(105%);
+  transition: filter 0.6s ease;
+}
 
-        @media (max-width: 768px) {
-            .jike-sidebar { display: none; }
-            .main-content { padding: 16px 12px; width: 100%; }
-            .jike-main-card { border-radius: 16px; }
-            .feed-buttons-matrix { flex-direction: column; gap: 8px; }
-            .matrix-btn { width: 100%; }
-            .music-player-container { top: 16px; right: 16px; }
-        }
-    </style>
+.hero-photo-wrapper:hover img {
+  filter: grayscale(0%) contrast(100%);
+}
+
+.hero-accent-line {
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  width: 40%;
+  height: 1px;
+  background: var(--accent);
+  transform-origin: right;
+}
+
+.hero-accent-dot {
+  position: absolute;
+  bottom: -0.75rem;
+  left: -0.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+/* Fade reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* Quote strip */
+.quote-strip {
+  padding: clamp(4rem, 8vw, 8rem);
+  text-align: center;
+  position: relative;
+}
+
+.quote-strip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 4rem;
+  background: var(--border);
+}
+
+.quote-text {
+  font-family: "Noto Serif SC", serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.5;
+  max-width: 28ch;
+  margin: 0 auto 2rem;
+  color: var(--text);
+}
+
+.quote-author {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Manifesto */
+.manifesto {
+  padding: 0 clamp(2rem, 8vw, 8rem) clamp(4rem, 8vw, 8rem);
+}
+
+.manifesto-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+}
+
+.manifesto-label {
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.manifesto-text {
+  font-family: "Noto Serif SC", serif;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 2;
+  color: var(--text);
+}
+
+.manifesto-text .accent { color: var(--accent); font-weight: 700; }
+
+/* Contact */
+.contact-section {
+  padding: clamp(3rem, 6vw, 6rem) clamp(2rem, 8vw, 8rem);
+  background: var(--surface);
+}
+
+.contact-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.3s ease;
+  position: relative;
+  background: var(--surface);
+  border-radius: 2px;
+}
+
+.contact-item:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.contact-item .contact-icon {
+  width: 28px; height: 28px;
+  margin-bottom: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.contact-item:hover .contact-icon { transform: translateY(-2px); }
+
+.contact-label {
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: inherit;
+  opacity: 0.6;
+}
+
+.contact-value {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: inherit;
+}
+
+/* Footer */
+footer {
+  padding: clamp(2rem, 4vw, 4rem) clamp(2rem, 8vw, 8rem);
+  text-align: center;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Section dividers */
+.section-rule {
+  max-width: 900px;
+  margin: 0 auto;
+  height: 1px;
+  background: var(--border);
+  opacity: 0;
+}
+
+/* Location badge */
+.location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  font-weight: 600;
+  padding: 0.25rem 0;
+  margin-top: 2rem;
+}
+
+.location-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+@media (max-width: 768px) {
+  .hero-content { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-visual { order: -1; max-width: 280px; aspect-ratio: 1/1; border-radius: 50%; margin: 0 auto; }
+  .hero-photo-wrapper { border-radius: 50%; }
+  .hero-accent-line, .hero-accent-dot { display: none; }
+  .manifesto-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
 </head>
 <body>
 
-    <!-- 🌌 动态纯 CSS 烟花层 -->
-    <div class="fireworks-container">
-        <div class="firework"></div>
-        <div class="firework"></div>
+<nav>
+  <span class="nav-logo">JYC</span>
+  <button class="music-btn" id="musicToggle" aria-label="Toggle music">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="5" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+      <path d="M8 18V5l12-2v11"/>
+    </svg>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="hero-tag reveal">个人数字领地</p>
+      <h1 class="hero-name reveal reveal-delay-1">
+        Journey<br>
+        <span class="highlight">Yields</span><br>
+        Crescent
+      </h1>
+      <p class="hero-sub reveal reveal-delay-2">
+        去接受平安普通的自己，不以物喜，不以己悲。
+      </p>
+      <div class="location-badge reveal reveal-delay-3">
+        <span class="location-dot"></span>
+        上海 · SHANGHAI
+      </div>
     </div>
-
-    <!-- 💛 左侧原汁原味即刻固定侧边栏 -->
-    <div class="jike-sidebar">
-        <div class="sidebar-top">
-            <div class="jike-logo">J</div>
-            <div class="nav-item active">
-                <svg class="sidebar-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            </div>
-            <div class="nav-item">
-                <svg class="sidebar-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            </div>
-            <div class="nav-item">
-                <svg class="sidebar-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-            </div>
-            <div class="nav-item add-btn">
-                <svg class="sidebar-icon" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-            </div>
-        </div>
-        <div class="nav-item">
-            <svg class="sidebar-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-        </div>
+    <div class="hero-visual reveal reveal-delay-1">
+      <div class="hero-photo-wrapper">
+        <img src="JYC.jpg" alt="JYC" loading="eager">
+        <span class="hero-accent-line"></span>
+        <span class="hero-accent-dot"></span>
+      </div>
     </div>
-    <!-- 📱 全景中央对齐主容器 -->
-    <div class="main-content">
-        <div class="jike-main-card">
-            
-            <!-- 大Banner背景 -->
-            <div class="card-banner"></div>
+  </div>
+</section>
 
-            <!-- 个人基本详情区 -->
-            <div class="profile-header-block">
-                <div class="jike-avatar-wrapper">
-                    <img src="JYC.jpg" alt="巨寅初">
-                </div>
-                <button class="header-action-btn">已关注</button>
-                
-                <h2 class="jike-name">Journey Yields Crescent 🌙</h2>
-                
-                <div class="jike-tag-container">
-                    <span class="jike-tag tag-geo">📍 上海</span>
-                    <span class="jike-tag tag-work">💼 风犬少年的天空</span>
-                    <span class="jike-tag tag-star">✨ 慢慢来，一切皆有回甘</span>
-                </div>
-            </div>
+<section class="quote-strip">
+  <div class="reveal">
+    <p class="quote-text">清醒自持，温柔且有锋芒。<br>走过漫长独行的路途，所有沉淀与奔赴，<br>终会迎来属于自己的弯月星光。</p>
+    <p class="quote-author">— Journey Yields Crescent</p>
+  </div>
+</section>
 
-            <!-- 导航标签 -->
-            <div class="jike-tabs">
-                <div class="jike-tab active">动态</div>
-            </div>
-            <!-- 动态流卡片 -->
-            <div class="jike-feed-list">
-                <div class="feed-item">
-                    <div class="feed-avatar">
-                        <img src="JYC.jpg" alt="巨寅初">
-                    </div>
-                    <div class="feed-main">
-                        <div class="feed-user-info">
-                            <span class="feed-user-name">巨寅初</span>
-                            <span class="feed-pin">📌 置顶</span>
-                        </div>
-                        <div class="feed-time">1994/09/03 · 个人网络领地</div>
-                        
-                        <div class="feed-content">
-                            去接受平安普通的自己,不以物喜不以己悲。✌️
-                            <div class="poem-box">
-                                <p>清醒自持，</p>
-                                <p>温柔且有锋芒。</p>
-                                <p>走过漫长独行的路途，</p>
-                                <p>所有沉淀与奔赴，</p>
-                                <p style="font-weight: 700; color: #111827;">终会迎来属于自己的弯月星光。🌙</p>
-                            </div>
-                        </div>
+<div class="section-rule reveal"></div>
 
-                        <!-- 联络矩阵附件 -->
-                        <div class="feed-buttons-matrix">
-                            <a href="https://www.instagram.com/aeo.ju" target="_blank" class="matrix-btn">
-                                Instagram: aeo.ju
-                            </a>
-                            <span class="matrix-btn" style="cursor: text;">
-                                微信: aeo_cn
-                            </span>
-                            <a href="mailto:apero.ju@gmail.com" class="matrix-btn">
-                                apero.ju@gmail.com
-                            </a>
-                        </div>
-
-                        <!-- 转发、评论、点赞互动条 -->
-                        <div class="feed-interact-bar">
-                            <div class="interact-item">
-                                <svg class="interact-icon" viewBox="0 0 24 24"><path d="M15 8v4H5v2h10v4l6-5-6-5z"/></svg> 03
-                            </div>
-                            <div class="interact-item">
-                                <svg class="interact-icon" viewBox="0 0 24 24"><path d="M21.99 4c0-1.1-.89-2-1.99-2+H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg> 09
-                            </div>
-                            <div class="interact-item" style="color: #ef4444;">
-                                <svg class="interact-icon" viewBox="0 0 24 24" style="fill: #ef4444;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 2026
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
+<section class="manifesto">
+  <div class="manifesto-grid">
+    <div class="reveal">
+      <p class="manifesto-label">关于</p>
+      <p class="manifesto-text">
+        慢慢来，<span class="accent">一切皆有回音</span>。
+      </p>
     </div>
+    <div class="reveal reveal-delay-1">
+      <p class="manifesto-label">信念</p>
+      <p class="manifesto-text">
+        风犬少年的天空下，做一个清醒而温柔的人。
+      </p>
+    </div>
+  </div>
+</section>
 
-    <!-- 右下角 What's new 挂载链接 -->
-    <a href="http://jujujuhappy.win" target="_blank" class="whats-new-badge">
-        <span class="whats-new-dot"></span>
-        jujujuhappy.win
+<section class="contact-section" id="contact">
+  <div class="contact-grid">
+    <a href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener" class="contact-item reveal">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/>
+      </svg>
+      <span class="contact-label">Instagram</span>
+      <span class="contact-value">aeo.ju</span>
     </a>
+    <div class="contact-item reveal reveal-delay-1">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 10.5h8M8 14h5M6 5h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2z"/>
+      </svg>
+      <span class="contact-label">微信</span>
+      <span class="contact-value">aeo_cn</span>
+    </div>
+    <a href="mailto:apero.ju@gmail.com" class="contact-item reveal reveal-delay-2">
+      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
+      </svg>
+      <span class="contact-label">Email</span>
+      <span class="contact-value">apero.ju@gmail.com</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 jujujuhappy.win</p>
+</footer>
+
+<audio id="bgm" src="JYC.mp3" loop preload="none"></audio>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const musicBtn = document.getElementById('musicToggle');
+const bgm = document.getElementById('bgm');
+let isPlaying = false;
+
+musicBtn.addEventListener('click', () => {
+  if (isPlaying) {
+    bgm.pause();
+    musicBtn.classList.remove('playing');
+    isPlaying = false;
+  } else {
+    bgm.play().then(() => {
+      musicBtn.classList.add('playing');
+      isPlaying = true;
+    }).catch(() => {});
+  }
+});
+</script>
+
 </body>
 </html>
