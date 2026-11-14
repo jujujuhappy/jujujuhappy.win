@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0a0812">
+<meta name="theme-color" content="#23206b">
 <title>Journey Yields Crescent — 北海道</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,167 +14,158 @@
   --snow:#f9f7f4; --snow-deep:#f0ece6;
   --lavender:#b8a6c4; --lavender-light:#d4c8dc; --lavender-deep:#7a6b8a;
   --ink:#2c2c2c; --ink-light:#5a5a5a;
-  --night:#17122b;
 }
 html,body{height:100%}
 body{
   font-family:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
-  background:#0a0812;color:#fff;overflow:hidden;-webkit-font-smoothing:antialiased;
+  background:#14102e;color:#fff;overflow:hidden;-webkit-font-smoothing:antialiased;
 }
 .serif{font-family:"Noto Serif SC","Songti SC",serif}
 .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 button{font-family:inherit;border:0;background:none;cursor:pointer;color:inherit}
-a{color:inherit}
+a{color:inherit;text-decoration:none}
 
-/* ---------- wallpaper ---------- */
-.os{position:fixed;inset:0;overflow:hidden;
-  background:linear-gradient(180deg,#0a0812 0%,#17122b 30%,#2c2150 55%,#6f5a8a 78%,#b8a6c4 100%)}
-.os::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:
-    radial-gradient(1.5px 1.5px at 12% 10%,#fff 50%,transparent 51%),
-    radial-gradient(1px 1px at 28% 5%,#fff 50%,transparent 51%),
-    radial-gradient(2px 2px at 44% 14%,#fff 50%,transparent 51%),
-    radial-gradient(1px 1px at 62% 7%,#fff 50%,transparent 51%),
-    radial-gradient(1.5px 1.5px at 78% 13%,#fff 50%,transparent 51%),
-    radial-gradient(1px 1px at 88% 4%,#fff 50%,transparent 51%),
-    radial-gradient(1px 1px at 20% 24%,#fff 50%,transparent 51%),
-    radial-gradient(1.5px 1.5px at 55% 22%,#fff 50%,transparent 51%),
-    radial-gradient(1px 1px at 70% 26%,#fff 50%,transparent 51%),
-    radial-gradient(1px 1px at 92% 22%,#fff 50%,transparent 51%),
-    radial-gradient(1px 1px at 8% 38%,#fff 50%,transparent 51%),
-    radial-gradient(1px 1px at 36% 34%,#fff 50%,transparent 51%);
-  opacity:.9}
-.earth{position:absolute;top:16%;left:6%;width:110px;height:110px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#9fc3e8,#3a6ea8 45%,#1d3f66 75%,#122a45);
-  box-shadow:0 0 40px rgba(90,140,200,.5);opacity:.9}
-.crescent{position:absolute;top:9%;right:9%;width:86px;height:86px;border-radius:50%;
-  background:radial-gradient(circle at 62% 38%,#fff8e6,#f3e6c8 55%,#e6d3a8);
-  box-shadow:0 0 40px rgba(255,244,200,.5)}
-.crescent::after{content:"";position:absolute;inset:-8px 16px 16px -16px;border-radius:50%;
-  background:linear-gradient(180deg,#17122b,#241c44);opacity:.94}
-.mountains{position:absolute;left:0;right:0;bottom:0;height:220px;pointer-events:none;z-index:1}
-.mountains svg{width:100%;height:100%;display:block}
-#snowCanvas{position:absolute;inset:0;z-index:2;pointer-events:none}
+/* ---------- stage / phone frame ---------- */
+.stage{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px}
+.stage-hint{color:rgba(255,255,255,.45);font-size:12px;letter-spacing:.18em;text-align:center}
+.phone{
+  position:relative;width:min(390px,100vw);height:min(844px,100dvh);
+  border-radius:54px;overflow:hidden;flex:none;
+  background:linear-gradient(180deg,#23206b 0%,#3a2a7d 22%,#5a3394 46%,#8a44a0 70%,#c05f9e 100%);
+  box-shadow:0 0 0 11px #1c1c22,0 0 0 13px #3a3a44,0 40px 90px rgba(0,0,0,.7);
+}
+@media (max-width:480px){
+  .stage{padding:0;gap:0}
+  .stage-hint{display:none}
+  .phone{width:100vw;height:100dvh;border-radius:0;box-shadow:none}
+}
 
-/* ---------- lock screen ---------- */
-.lock{position:absolute;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;
-  text-align:center;padding:52px 20px 30px;transition:transform .6s cubic-bezier(.32,.72,.24,1),opacity .5s;cursor:pointer}
-.lock.hidden{transform:translateY(-102%);opacity:0;pointer-events:none}
-.lock-date{font-size:17px;font-weight:500;letter-spacing:.08em;text-shadow:0 1px 12px rgba(0,0,0,.5)}
-.lock-time{font-size:76px;font-weight:700;line-height:1.05;letter-spacing:-.02em;text-shadow:0 2px 24px rgba(0,0,0,.4)}
-.crt{margin-top:26px;width:264px;background:#e8dcc0;border-radius:12px;padding:12px 12px 10px;
-  box-shadow:0 18px 44px rgba(0,0,0,.5);text-align:left}
-.crt-screen{background:#123a6e;border-radius:6px;padding:12px 12px 10px;min-height:104px;
-  color:#bfe0ff;font-family:"JetBrains Mono",monospace;font-size:11.5px;line-height:1.75}
-.crt-screen .p{color:#7dd87d}
-.crt-screen .t{color:#fff;font-weight:600}
-.crt-kbd{height:16px;margin-top:9px;border-radius:4px;background:#d3c5a0;
-  background-image:repeating-linear-gradient(90deg,transparent 0 9px,rgba(0,0,0,.14) 9px 10px)}
-.crt-stand{width:70px;height:8px;margin:7px auto 0;border-radius:3px;background:#d3c5a0}
-.lock-avatar{width:84px;height:84px;border-radius:50%;overflow:hidden;margin-top:24px;
-  border:3px solid rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(0,0,0,.45)}
+/* ---------- status bar ---------- */
+.statusbar{
+  position:absolute;top:0;left:0;right:0;z-index:50;height:52px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 28px 0;color:#fff;pointer-events:none;
+}
+.statusbar .sb-time{font-size:15px;font-weight:600;letter-spacing:.03em}
+.statusbar .sb-icons{display:flex;align-items:center;gap:6px}
+.statusbar svg{display:block}
+
+/* ---------- screens ---------- */
+.screen{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;transition:transform .55s cubic-bezier(.32,.72,.24,1),opacity .45s}
+.screen.hidden{transform:translateY(-100%);opacity:0;pointer-events:none}
+
+/* lock screen (per screenshot: date, huge time, avatar, name, pill) */
+#lockScreen{align-items:center;text-align:center;padding:118px 24px 40px;cursor:pointer}
+.lock-date{font-size:19px;font-weight:500;letter-spacing:.1em;text-shadow:0 1px 14px rgba(0,0,0,.35)}
+.lock-time{font-size:104px;font-weight:800;line-height:1.08;letter-spacing:-.02em;text-shadow:0 2px 28px rgba(0,0,0,.3)}
+.lock-avatar{width:112px;height:112px;border-radius:50%;overflow:hidden;margin-top:19vh;
+  border:3px solid rgba(255,255,255,.85);box-shadow:0 12px 34px rgba(0,0,0,.4)}
 .lock-avatar img{width:100%;height:100%;object-fit:cover}
-.lock-name{margin-top:14px;font-size:20px;font-weight:600;letter-spacing:.06em;text-shadow:0 1px 12px rgba(0,0,0,.5)}
-.lock-sub{margin-top:5px;font-size:12px;letter-spacing:.3em;color:rgba(255,255,255,.85);text-transform:uppercase}
-.lock-enter{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px}
-.lock-pill{padding:11px 28px;border-radius:999px;background:rgba(255,255,255,.22);
+.lock-name{margin-top:16px;font-size:21px;font-weight:600;letter-spacing:.04em;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+.lock-enter{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:14px}
+.lock-pill{padding:13px 34px;border-radius:999px;background:rgba(255,255,255,.22);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,.4);font-size:15px;font-weight:500}
-.lock-hint{font-size:12px;letter-spacing:.2em;color:rgba(255,255,255,.75);animation:floatY 2.4s ease-in-out infinite}
-@keyframes floatY{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(-5px);opacity:1}}
+  border:1px solid rgba(255,255,255,.4);font-size:16px;font-weight:500}
+.lock-hint{font-size:12px;letter-spacing:.22em;color:rgba(255,255,255,.7);animation:floatY 2.4s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(-5px);opacity:1}}
 
-/* ---------- desktop ---------- */
-.desktop{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .5s}
-.desktop.show{opacity:1;pointer-events:auto}
-.menubar{flex:none;height:32px;background:rgba(0,0,0,.42);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  display:flex;align-items:center;gap:2px;padding:0 14px;font-size:13px;position:relative;z-index:60}
-.menubar .logo{font-weight:700;margin-right:10px;white-space:nowrap}
-.menubar .logo span{color:var(--lavender-light)}
-.menu{position:relative}
-.menu>button{padding:4px 9px;border-radius:5px;font-size:13px}
-.menu>button:hover,.menu>button.open{background:rgba(255,255,255,.16)}
-.dropdown{position:absolute;top:30px;left:0;min-width:210px;border-radius:10px;padding:6px;
-  background:rgba(30,26,48,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.16);box-shadow:0 16px 40px rgba(0,0,0,.5);display:none}
-.dropdown.show{display:block}
-.dropdown button{display:flex;width:100%;text-align:left;padding:8px 10px;border-radius:6px;font-size:13px;gap:10px;align-items:center}
-.dropdown button:hover{background:rgba(255,255,255,.14)}
-.dropdown button .k{margin-left:auto;color:rgba(255,255,255,.5);font-size:11px}
-.mb-right{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:12.5px;white-space:nowrap}
-.mb-right svg{display:block}
-.mb-clock{font-weight:500}
+/* home screen (per screenshot: 4-col grid, 2 rows, dock of 4) */
+#homeScreen{opacity:0;pointer-events:none}
+#homeScreen.show{opacity:1;pointer-events:auto}
+.home-scroll{flex:1;overflow-y:auto;padding:74px 22px 10px;scrollbar-width:none}
+.home-scroll::-webkit-scrollbar{display:none}
+.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px 10px;padding:8px 2px 6px}
+.app{display:flex;flex-direction:column;align-items:center;gap:8px}
+.app-icon{
+  width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;
+  font-size:27px;position:relative;overflow:hidden;flex:none;
+  box-shadow:0 10px 22px rgba(10,5,40,.4);transition:transform .15s;
+}
+.app:active .app-icon{transform:scale(.88)}
+.app-icon img{width:100%;height:100%;object-fit:cover;display:block}
+.app-icon .glyph{font-family:"Noto Serif SC",serif;font-weight:700}
+.app-icon svg{width:34px;height:34px;display:block}
+.app-icon.t-black{background:linear-gradient(145deg,#2b2b30,#000)}
+.app-icon.t-ig{background:#000}
+.app-icon.t-red{background:linear-gradient(145deg,#ff3b30,#e01e2b)}
+.app-icon.t-pink{background:linear-gradient(145deg,#fb7299,#f25a8a)}
+.app-icon.t-orange{background:linear-gradient(145deg,#f6a93b,#ef8a1a)}
+.app-icon.t-green{background:#07c160}
+.app-icon.t-dark{background:linear-gradient(145deg,#3a2f5e,#17122b)}
+.app-icon.t-finder{background:linear-gradient(145deg,#6db3f2,#1e6fd9)}
+.app-icon.t-safari{background:linear-gradient(145deg,#eef4fb,#fff)}
+.app-icon.t-contact{background:linear-gradient(145deg,#c9a86a,#8a6a35)}
+.app-icon .badge{position:absolute;top:4px;right:4px;min-width:18px;height:18px;border-radius:9px;
+  background:#ff3b30;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.app-icon .badge[hidden]{display:none}
+.app-label{font-size:12.5px;font-weight:500;text-shadow:0 1px 8px rgba(0,0,0,.45);text-align:center;white-space:nowrap}
+.mini-player{
+  display:none;margin:10px 2px;border-radius:18px;padding:10px 14px;
+  background:rgba(23,18,43,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.25);align-items:center;gap:10px;
+}
+.mini-player.show{display:flex}
+.mini-player img{width:38px;height:38px;border-radius:9px;object-fit:cover}
+.mini-player .mp-text{flex:1;min-width:0}
+.mini-player .mp-title{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-player .mp-sub{font-size:11px;color:rgba(255,255,255,.7)}
+.mini-player .mp-btn{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.22);font-size:15px;display:flex;align-items:center;justify-content:center}
+.dock{
+  margin:0 14px 16px;border-radius:30px;padding:12px 14px;
+  background:rgba(255,255,255,.24);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.3);
+  display:flex;justify-content:space-around;
+}
+.dock .app-icon{width:58px;height:58px;border-radius:16px}
+.dock .app-label{display:none}
 
-.workspace{flex:1;position:relative;overflow:hidden}
-.pills{position:absolute;top:14px;right:16px;z-index:5;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
-.pill{background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  color:#fff;font-size:12px;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.14)}
-.desk-icons{position:absolute;top:14px;left:16px;z-index:5;display:grid;grid-template-columns:repeat(2,86px);gap:18px 10px}
-.desk-icon{display:flex;flex-direction:column;align-items:center;gap:6px;width:86px}
-.desk-icon .di{width:58px;height:58px;border-radius:13px;display:flex;align-items:center;justify-content:center;
-  font-size:24px;overflow:hidden;position:relative;box-shadow:0 8px 18px rgba(0,0,0,.35);
-  background:rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,.3)}
-.desk-icon .di img{width:100%;height:100%;object-fit:cover}
-.desk-icon .di.doc{background:linear-gradient(145deg,#fff,#dfe3ea);color:#3a4a6a;font-family:"Noto Serif SC",serif;font-weight:700}
-.desk-icon .di.mp3{background:linear-gradient(145deg,#7d9b7e,#3d5a40)}
-.desk-icon .di.txt{background:linear-gradient(145deg,#cbbcd8,#8f7ba6)}
-.desk-icon.sel .di{outline:2px solid rgba(255,255,255,.85)}
-.desk-icon .dl{font-size:11.5px;line-height:1.35;text-align:center;text-shadow:0 1px 6px rgba(0,0,0,.6);
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-
-/* windows */
-.win{position:absolute;z-index:20;width:min(660px,94vw);max-height:calc(100% - 18px);
-  border-radius:12px;overflow:hidden;display:none;flex-direction:column;
-  background:var(--snow);color:var(--ink);
-  box-shadow:0 24px 70px rgba(0,0,0,.55),0 0 0 1px rgba(0,0,0,.08)}
-.win.open{display:flex}
-.win.focused{box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(184,166,196,.5)}
-.win.wide{width:min(760px,94vw)}
-.win.narrow{width:min(460px,94vw)}
-.win-bar{flex:none;display:flex;align-items:center;gap:8px;padding:10px 14px;
-  background:#ece9e4;border-bottom:1px solid rgba(0,0,0,.06);cursor:grab;user-select:none;touch-action:none}
-.win-bar:active{cursor:grabbing}
-.traffic{display:flex;gap:7px;flex:none}
-.traffic i{width:12px;height:12px;border-radius:50%;display:block}
-.traffic .r{background:#ff5f57}.traffic .y{background:#febc2e}.traffic .g{background:#28c840}
-.traffic button{width:12px;height:12px;border-radius:50%;padding:0;line-height:1}
-.win-title{flex:1;text-align:center;font-size:13px;font-weight:600;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.win-title .addr{font-weight:400;color:#888;font-size:12px}
-.win-body{flex:1;overflow-y:auto;padding:24px 26px 30px;line-height:2;background:var(--snow)}
-.win-body.dark{background:#101014;color:#e8e8ec}
-.win-body h2{font-family:"Noto Serif SC",serif;font-size:26px;font-weight:600;line-height:1.4;margin-bottom:6px}
-.win-body .loc{font-size:12px;color:var(--lavender-deep);letter-spacing:.15em;font-weight:500;margin-bottom:14px}
-.win-body .loc::before{content:"✦ ";color:var(--lavender);font-size:10px}
-.win-body p{font-size:14.5px;color:var(--ink-light);font-weight:300}
-.win-body .hero-big{font-family:"Noto Serif SC",serif;font-size:50px;font-weight:700;line-height:1.25;color:var(--ink)}
-.win-body .hero-big .hl{color:var(--lavender)}
-.win-body .pre{font-size:12px;letter-spacing:.34em;color:var(--lavender-deep);font-weight:500;text-transform:uppercase;margin-bottom:12px}
-.win-body .center{text-align:center}
-.win-body .photo{width:100%;border-radius:6px;overflow:hidden;margin:8px 0 16px;border:1px solid var(--lavender-light)}
-.win-body .photo img{width:100%;display:block}
-.win-body .quote-mark{font-size:40px;color:var(--lavender-light);line-height:1}
-.win-body .quote{font-family:"Noto Serif SC",serif;font-size:23px;font-weight:600;line-height:1.8;max-width:24ch;margin:0 auto 14px;color:var(--ink)}
-.win-body .divider{width:40px;height:2px;background:var(--lavender);margin:0 auto 12px}
-.win-body .attr{font-size:12px;color:var(--ink-light);letter-spacing:.15em;font-weight:500}
+/* ---------- app view ---------- */
+.app-view{
+  position:absolute;inset:0;z-index:40;background:var(--snow);color:var(--ink);
+  transform:translateY(102%);transition:transform .45s cubic-bezier(.32,.72,.24,1);
+  display:flex;flex-direction:column;
+}
+.app-view.open{transform:translateY(0)}
+.app-bar{
+  flex:none;padding:56px 18px 12px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(249,247,244,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,0,0,.05);position:relative;z-index:2;
+}
+.app-bar .ab-title{font-size:17px;font-weight:600}
+.app-bar .ab-close{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.06);
+  display:flex;align-items:center;justify-content:center;font-size:17px;line-height:1}
+.app-bar .ab-spacer{width:32px}
+.app-body{flex:1;overflow-y:auto;padding:26px 26px 44px;line-height:2}
+.app-body.dark{background:#101014;color:#e8e8ec}
+.app-body h2{font-family:"Noto Serif SC",serif;font-size:26px;font-weight:600;line-height:1.4;margin-bottom:6px}
+.app-body .loc{font-size:12px;color:var(--lavender-deep);letter-spacing:.15em;font-weight:500;margin-bottom:14px}
+.app-body .loc::before{content:"✦ ";color:var(--lavender);font-size:10px}
+.app-body p{font-size:15px;color:var(--ink-light);font-weight:300}
+.app-body .hero-big{font-family:"Noto Serif SC",serif;font-size:52px;font-weight:700;line-height:1.25;color:var(--ink)}
+.app-body .hero-big .hl{color:var(--lavender)}
+.app-body .pre{font-size:12px;letter-spacing:.34em;color:var(--lavender-deep);font-weight:500;text-transform:uppercase;margin-bottom:12px}
+.app-body .center{text-align:center}
+.app-body .photo{width:100%;border-radius:6px;overflow:hidden;margin:8px 0 16px;border:1px solid var(--lavender-light)}
+.app-body .photo img{width:100%;display:block}
+.app-body .quote-mark{font-size:44px;color:var(--lavender-light);line-height:1}
+.app-body .quote{font-family:"Noto Serif SC",serif;font-size:24px;font-weight:600;line-height:1.8;max-width:24ch;margin:0 auto 14px;color:var(--ink)}
+.app-body .divider{width:40px;height:2px;background:var(--lavender);margin:0 auto 12px}
+.app-body .attr{font-size:12px;color:var(--ink-light);letter-spacing:.15em;font-weight:500}
 .kanji-row{display:flex;justify-content:space-around;gap:8px;padding:16px 0;flex-wrap:wrap}
 .kanji-cell{text-align:center;min-width:64px}
 .kanji-cell .kc{font-family:"Noto Serif SC",serif;font-size:44px;color:var(--lavender);font-weight:700;line-height:1.1;opacity:.85}
 .kanji-cell .kr{font-size:12px;color:var(--lavender-deep);letter-spacing:.1em;margin-top:6px}
 .foot{font-size:12px;color:var(--ink-light);opacity:.55;text-align:center;margin-top:24px}
 /* finder */
-.finder{display:flex;min-height:340px}
-.finder-side{flex:none;width:172px;padding:14px 10px;background:#f0ece6;border-right:1px solid rgba(0,0,0,.05);font-size:12.5px}
-.finder-side h4{font-size:11px;color:#999;letter-spacing:.08em;margin:10px 8px 5px;font-weight:500}
-.finder-side h4:first-child{margin-top:0}
-.finder-side .side-item{display:block;padding:5px 8px;border-radius:6px;color:#555}
-.finder-side .side-item.on{background:rgba(184,166,196,.35);color:var(--ink);font-weight:500}
-.finder-main{flex:1;padding:12px 16px;min-width:0}
-.finder-main table{width:100%;border-collapse:collapse;font-size:13px}
-.finder-main th{text-align:left;font-size:11px;color:#999;font-weight:500;padding:6px 8px;border-bottom:1px solid rgba(0,0,0,.08)}
-.finder-main td{padding:9px 8px;border-bottom:1px solid rgba(0,0,0,.04);white-space:nowrap}
-.finder-main tr.frow{cursor:pointer}
-.finder-main tr.frow:hover td{background:rgba(184,166,196,.14)}
-.finder-main .fname{font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.finder-side{font-size:12.5px;color:#888;margin-bottom:6px}
+.finder-side span{display:inline-block;padding:4px 10px;border-radius:999px;background:#f0ece6;color:#777;margin:0 4px 6px 0}
+.finder-side span.on{background:rgba(184,166,196,.4);color:var(--ink);font-weight:500}
+.finder-table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:8px}
+.finder-table th{text-align:left;font-size:11px;color:#999;font-weight:500;padding:6px 8px;border-bottom:1px solid rgba(0,0,0,.08)}
+.finder-table td{padding:11px 8px;border-bottom:1px solid rgba(0,0,0,.04)}
+.finder-table tr.frow{cursor:pointer}
+.finder-table tr.frow:hover td{background:rgba(184,166,196,.14)}
+.finder-table .fname{font-weight:500;color:var(--ink)}
 .finder-foot{font-size:12px;color:#999;margin-top:12px}
 /* terminal */
 .term{font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.9;color:#d8e6d8;min-height:320px}
@@ -185,38 +176,33 @@ a{color:inherit}
 .term-input-row{display:flex;gap:8px;align-items:center;margin-top:4px}
 .term-input{flex:1;background:transparent;border:0;outline:0;color:#fff;font-family:inherit;font-size:13px}
 /* contacts */
-.contacts{display:flex;min-height:340px}
-.contacts-list{flex:none;width:180px;border-right:1px solid rgba(0,0,0,.06);padding:8px}
-.contact-item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;padding:10px;border-radius:9px}
-.contact-item:hover{background:rgba(0,0,0,.04)}
-.contact-item.on{background:rgba(184,166,196,.28)}
-.contact-item .ci-av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(145deg,#cbbcd8,#8f7ba6);color:#fff;font-weight:700;overflow:hidden}
-.contact-item .ci-av img{width:100%;height:100%;object-fit:cover}
-.contact-item .ci-name{font-size:13.5px;font-weight:600;color:var(--ink)}
-.contact-item .ci-sub{font-size:11.5px;color:#999}
-.contacts-detail{flex:1;padding:22px 24px;text-align:center}
-.contacts-detail .cd-av{width:96px;height:96px;border-radius:50%;margin:0 auto 14px;overflow:hidden;
-  background:linear-gradient(145deg,#7dd8c0,#3a7a8a);display:flex;align-items:center;justify-content:center;
-  font-size:38px;color:#fff;font-weight:700}
-.contacts-detail .cd-av img{width:100%;height:100%;object-fit:cover}
-.contacts-detail h3{font-size:19px;font-weight:600}
-.contacts-detail .cd-sub{font-size:12.5px;color:#999;margin:5px 0 16px}
-.contacts-detail .cd-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
-.chip-btn{padding:7px 14px;border-radius:999px;background:#eef0f2;font-size:12.5px;color:#333}
+.contact-list{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.contact-row{display:flex;align-items:center;gap:14px;padding:16px;background:#fff;border-radius:14px;
+  text-decoration:none;color:var(--ink);border:1px solid rgba(0,0,0,.04);cursor:pointer;text-align:left;width:100%}
+.contact-row .ci{width:44px;height:44px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#cbbcd8,#8f7ba6);color:#fff;font-weight:700;font-size:18px}
+.contact-row .cl{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-light)}
+.contact-row .cv{font-size:15px;font-weight:500}
+.contact-row .go{margin-left:auto;color:#c8c8c8;font-size:18px}
+.contact-detail{margin-top:16px;padding:20px;background:#fff;border-radius:14px;text-align:center;border:1px solid rgba(0,0,0,.04)}
+.contact-detail .cd-av{width:76px;height:76px;border-radius:50%;margin:0 auto 10px;overflow:hidden;
+  background:linear-gradient(145deg,#cbbcd8,#8f7ba6);display:flex;align-items:center;justify-content:center;font-size:30px;color:#fff;font-weight:700}
+.contact-detail h3{font-size:17px;font-weight:600}
+.contact-detail .cd-sub{font-size:12.5px;color:#999;margin:4px 0 12px}
+.chip-btn{display:inline-block;padding:8px 16px;border-radius:999px;background:#eef0f2;font-size:13px;color:#333}
 .chip-btn:hover{background:#e2e6ea}
-.contacts-detail .cd-bio{font-size:13.5px;color:var(--ink-light);text-align:left;line-height:1.9}
 /* music */
-.player-art{width:min(300px,80%);aspect-ratio:1;border-radius:14px;overflow:hidden;margin:2px auto 18px;box-shadow:0 16px 36px rgba(60,40,90,.25)}
+.player-art{width:100%;aspect-ratio:1;border-radius:18px;overflow:hidden;margin:4px 0 20px;box-shadow:0 18px 40px rgba(60,40,90,.25)}
 .player-art img{width:100%;height:100%;object-fit:cover;display:block}
-.player-track{font-size:20px;font-weight:600;text-align:center}
-.player-artist{font-size:12.5px;color:var(--ink-light);text-align:center;margin:5px 0 18px;letter-spacing:.08em}
+.player-track{font-size:21px;font-weight:600;text-align:center}
+.player-artist{font-size:13px;color:var(--ink-light);text-align:center;margin:6px 0 22px;letter-spacing:.08em}
 .progress{height:5px;border-radius:3px;background:rgba(0,0,0,.1);overflow:hidden;cursor:pointer}
-.progress i{display:block;height:100%;width:0%;background:var(--lavender-deep)}
-.time-row{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-light);margin:7px 0 16px}
-.player-controls{display:flex;align-items:center;justify-content:center;gap:30px}
-.play-btn{width:66px;height:66px;border-radius:50%;background:var(--ink);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 22px rgba(0,0,0,.25)}
-/* wechat */
+.progress i{display:block;height:100%;width:0%;background:var(--lavender-deep);border-radius:3px}
+.time-row{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-light);margin:8px 0 20px}
+.player-controls{display:flex;align-items:center;justify-content:center;gap:34px}
+.play-btn{width:72px;height:72px;border-radius:50%;background:var(--ink);color:#fff;font-size:24px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.player-note{text-align:center;font-size:12px;color:var(--ink-light);margin-top:20px;letter-spacing:.06em}
 .wx-card{max-width:340px;margin:0 auto;text-align:center}
 .wx-ava{width:72px;height:72px;border-radius:50%;margin:0 auto 12px;overflow:hidden;border:3px solid #fff;box-shadow:0 8px 20px rgba(0,0,0,.2)}
 .wx-ava img{width:100%;height:100%;object-fit:cover}
@@ -224,327 +210,95 @@ a{color:inherit}
 .wx-sub{font-size:12.5px;color:#999;margin:6px 0 16px}
 .wx-copy{padding:10px 22px;border-radius:999px;background:#07c160;color:#fff;font-size:14px;font-weight:600}
 .wx-note{font-size:12px;color:#999;margin-top:14px;line-height:1.8}
-
-/* dock */
-.dock-wrap{flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 12px 12px;position:relative;z-index:50}
-.mini-player{display:none;align-items:center;gap:10px;padding:8px 14px;border-radius:16px;
-  background:rgba(20,16,38,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,.25);max-width:360px;width:100%}
-.mini-player.show{display:flex}
-.mini-player img{width:34px;height:34px;border-radius:8px;object-fit:cover}
-.mini-player .mp-text{flex:1;min-width:0}
-.mini-player .mp-title{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mini-player .mp-sub{font-size:11px;color:rgba(255,255,255,.7)}
-.mini-player .mp-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.22);font-size:14px;display:flex;align-items:center;justify-content:center}
-.dock{display:flex;gap:6px;padding:9px 12px;border-radius:24px;
-  background:rgba(255,255,255,.22);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.32);box-shadow:0 14px 34px rgba(0,0,0,.35);max-width:100%;overflow-x:auto;scrollbar-width:none}
-.dock::-webkit-scrollbar{display:none}
-.dock-btn{position:relative;flex:none}
-.dock-icon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;
-  font-size:23px;overflow:hidden;position:relative;box-shadow:0 6px 14px rgba(0,0,0,.3);transition:transform .15s;
-  background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3)}
-.dock-btn:hover .dock-icon{transform:translateY(-6px) scale(1.06)}
-.dock-icon img{width:100%;height:100%;object-fit:cover}
-.dock-icon .glyph{font-family:"Noto Serif SC",serif;font-weight:700}
-.dock-icon.t-dark{background:linear-gradient(145deg,#3a2f5e,#17122b)}
-.dock-icon.t-finder{background:linear-gradient(145deg,#6db3f2,#1e6fd9)}
-.dock-icon.t-safari{background:linear-gradient(145deg,#e8f2fb,#fff);color:#1e6fd9}
-.dock-icon.t-contact{background:linear-gradient(145deg,#c9a86a,#8a6a35)}
-.dock-icon.t-green{background:linear-gradient(145deg,#7d9b7e,#3d5a40)}
-.dock-icon.t-blue{background:linear-gradient(145deg,#8fb4d9,#4a6a8a)}
-.dock-icon.t-pink{background:linear-gradient(145deg,#e8b4c8,#a86a8a)}
-.dock-icon.t-lav{background:linear-gradient(145deg,#cbbcd8,#8f7ba6)}
-.dock-icon.t-ig{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7)}
-.dock-icon.t-wx{background:#07c160}
-.dock-icon .badge{position:absolute;top:3px;right:3px;min-width:17px;height:17px;border-radius:9px;
-  background:#ff3b30;color:#fff;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px}
-.dock-icon .badge[hidden]{display:none}
-.dock-tip{position:absolute;bottom:64px;left:50%;transform:translateX(-50%);white-space:nowrap;
-  background:rgba(0,0,0,.8);color:#fff;font-size:11.5px;padding:5px 10px;border-radius:7px;
-  opacity:0;pointer-events:none;transition:opacity .15s}
-.dock-btn:hover .dock-tip{opacity:1}
-.dock-dot{width:4px;height:4px;border-radius:50%;background:#fff;margin:5px auto 0;opacity:0}
-.dock-btn.active .dock-dot{opacity:.9}
-
-@media (max-width:768px){
-  .menubar .menu{display:none}
-  .menubar .menu.go{display:block}
-  .earth{display:none}
-  .desk-icons{position:static;display:grid;grid-template-columns:repeat(4,1fr);gap:14px 6px;padding:14px 16px 4px;width:100%}
-  .desk-icon{width:100%}
-  .desk-icon .di{width:52px;height:52px}
-  .pills{display:none}
-  .workspace{display:flex;flex-direction:column}
-  .win{width:100vw;max-height:100%;border-radius:0;left:0 !important;top:0 !important}
-  .win-bar{cursor:default}
-  .dock-icon{width:48px;height:48px}
-  .lock-time{font-size:64px}
-  .crt{width:232px}
-}
 @media (prefers-reduced-motion:reduce){
-  .lock,.desktop{transition:none}
-  #snowCanvas{display:none}
+  .screen,.app-view{transition:none}
   .lock-hint{animation:none}
 }
 </style>
 </head>
 <body>
-<div class="os" id="os">
-  <div class="earth" aria-hidden="true"></div>
-  <div class="crescent" aria-hidden="true"></div>
-  <div class="mountains" aria-hidden="true">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path d="M0,320 L0,180 L120,140 L200,160 L260,100 L320,120 L380,80 L440,110 L500,60 L560,100 L620,50 L680,100 L740,40 L800,80 L860,30 L920,70 L980,20 L1040,65 L1100,35 L1160,70 L1200,45 L1260,85 L1320,55 L1380,90 L1440,50 L1440,320 Z" fill="#d4c8dc" opacity="0.35"/>
-      <path d="M0,320 L0,220 L140,180 L240,210 L300,160 L380,200 L440,130 L520,185 L580,120 L650,170 L710,100 L780,160 L840,80 L920,140 L980,70 L1060,130 L1120,60 L1200,115 L1280,65 L1360,110 L1440,55 L1440,320 Z" fill="#c4b8cc" opacity="0.45"/>
-      <path d="M0,320 L0,270 L160,240 L280,265 L360,220 L450,255 L530,200 L620,240 L700,185 L790,225 L870,170 L960,210 L1040,160 L1130,200 L1220,155 L1320,195 L1440,150 L1440,320 Z" fill="#f0ece6" opacity="0.85"/>
-    </svg>
-  </div>
-  <canvas id="snowCanvas"></canvas>
-
-  <!-- Lock screen -->
-  <section class="lock" id="lockScreen" role="button" aria-label="点击进入" tabindex="0">
-    <div class="lock-date" id="lockDate">--月--日 星期--</div>
-    <div class="lock-time" id="lockTime">--:--</div>
-    <div class="crt" aria-hidden="true">
-      <div class="crt-screen">
-        <div><span class="p">jyc@os ~ $</span> jyc --about</div>
-        <div><span class="t">Journey Yields Crescent</span></div>
-        <div>清醒自持 · 不以物喜，不以己悲。</div>
-        <div class="p"># 输入 help 查看可用命令</div>
-      </div>
-      <div class="crt-kbd"></div>
-      <div class="crt-stand"></div>
-    </div>
-    <div class="lock-avatar"><img src="JYC.jpg" alt="JYC"></div>
-    <div class="lock-name serif">Journey Yields Crescent</div>
-    <div class="lock-sub">HOKKAIDO</div>
-    <div class="lock-enter">
-      <div class="lock-pill">进入主页</div>
-      <div class="lock-hint">点 击 进 入 ⌃</div>
-    </div>
-  </section>
-
-  <!-- Desktop -->
-  <div class="desktop" id="desktop">
-    <header class="menubar">
-      <span class="logo">弯月 <span>OS</span></span>
-      <span class="menu"><button type="button">文件</button></span>
-      <span class="menu"><button type="button">编辑</button></span>
-      <span class="menu"><button type="button">显示</button></span>
-      <span class="menu go">
-        <button type="button" id="goBtn" aria-haspopup="true">前往 ▾</button>
-        <span class="dropdown" id="goMenu">
-          <button type="button" data-app="safari">浏览器 · 清醒自持 <span class="k">⌘1</span></button>
-          <button type="button" data-app="finder">访达 · 文档 <span class="k">⌘2</span></button>
-          <button type="button" data-app="terminal">终端 · 关于 <span class="k">⌘3</span></button>
-          <button type="button" data-app="contacts">通讯录 · 联系 <span class="k">⌘4</span></button>
-          <button type="button" data-app="music">音乐 · 风犬少年的天空 <span class="k">⌘5</span></button>
-          <button type="button" data-app="photos">相册 · JYC <span class="k">⌘6</span></button>
-        </span>
+<div class="stage">
+  <div class="phone" id="phone">
+    <div class="statusbar">
+      <span class="sb-time" id="sbTime">--:--</span>
+      <span class="sb-icons" aria-hidden="true">
+        <svg width="17" height="11" viewBox="0 0 17 11" fill="#fff"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+        <svg width="16" height="11" viewBox="0 0 16 12" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.2a10 10 0 0 1 13 0M4 7a6.5 6.5 0 0 1 8 0M6.6 9.6a3 3 0 0 1 2.8 0"/><circle cx="8" cy="11" r=".9" fill="#fff" stroke="none"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#fff"/><path d="M23.5 4v4a2.2 2.2 0 0 0 0-4Z" fill="#fff" opacity=".5"/></svg>
       </span>
-      <span class="menu"><button type="button">帮助</button></span>
-      <span class="mb-right">
-        <svg width="16" height="11" viewBox="0 0 16 12" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M1.5 4.2a10 10 0 0 1 13 0M4 7a6.5 6.5 0 0 1 8 0M6.6 9.6a3 3 0 0 1 2.8 0"/><circle cx="8" cy="11" r=".9" fill="#fff" stroke="none"/></svg>
-        <svg width="25" height="12" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#fff"/><path d="M23.5 4v4a2.2 2.2 0 0 0 0-4Z" fill="#fff" opacity=".5"/></svg>
-        <span class="mb-clock" id="mbClock">--月--日 周-- --:--</span>
-      </span>
-    </header>
-
-    <div class="workspace" id="workspace">
-      <div class="pills" aria-hidden="true">
-        <span class="pill">清醒自持</span>
-        <span class="pill">不以物喜，不以己悲</span>
-        <span class="pill">慢慢来，一切皆有回音</span>
-        <span class="pill">温柔且有锋芒</span>
-      </div>
-
-      <div class="desk-icons">
-        <button class="desk-icon" data-app="safari"><span class="di doc serif">清</span><span class="dl">清醒自持.txt</span></button>
-        <button class="desk-icon" data-app="photos"><span class="di"><img src="JYC.jpg" alt=""></span><span class="dl">JYC.jpg</span></button>
-        <button class="desk-icon" data-app="music"><span class="di mp3">♫</span><span class="dl">风犬少年的天空.mp3</span></button>
-        <button class="desk-icon" data-app="quote"><span class="di txt serif">❅</span><span class="dl">慢慢来，一切皆有回音.txt</span></button>
-        <button class="desk-icon" data-app="kanji"><span class="di txt serif">月</span><span class="dl">静雪月风.txt</span></button>
-        <button class="desk-icon" data-app="contacts"><span class="di txt">@</span><span class="dl">联系方式.vcf</span></button>
-      </div>
-
-      <!-- Safari -->
-      <section class="win wide" id="win-safari" data-app="safari" style="left:6%;top:4%">
-        <div class="win-bar"><span class="traffic"><button class="t-close" aria-label="关闭" style="background:#ff5f57"></button><button class="t-min" aria-label="最小化" style="background:#febc2e"></button><i style="background:#28c840"></i></span><span class="win-title">Journey Yields Crescent <span class="addr">— jujujuhappy.win</span></span><span style="width:52px"></span></div>
-        <div class="win-body">
-          <p class="pre">HOKKAIDO</p>
-          <div class="hero-big">清醒<span class="hl">自持</span></div>
-          <p style="margin-top:14px">Journey Yields Crescent<br>不以物喜，不以己悲。</p>
-          <div class="photo" style="margin-top:22px"><img src="JYC.jpg" alt="JYC"></div>
-          <h2>Journey Yields Crescent</h2>
-          <div class="loc">上海 · SHANGHAI</div>
-          <p>走过漫长独行的路途，<br>温柔且有锋芒。<br>所有沉淀与奔赴，<br>终会迎来属于自己的弯月星光。</p>
-          <div class="center" style="margin-top:26px">
-            <div class="quote-mark">❅</div>
-            <p class="quote">「慢慢来，一切皆有回音。」</p>
-            <div class="divider"></div>
-            <p class="attr">风犬少年的天空</p>
-          </div>
-          <div class="kanji-row">
-            <div class="kanji-cell"><div class="kc">静</div><div class="kr">静けさ</div></div>
-            <div class="kanji-cell"><div class="kc">雪</div><div class="kr">ゆき</div></div>
-            <div class="kanji-cell"><div class="kc">月</div><div class="kr">つき</div></div>
-            <div class="kanji-cell"><div class="kc">風</div><div class="kr">かぜ</div></div>
-          </div>
-          <p class="foot">© 2026 jujujuhappy.win</p>
-        </div>
-      </section>
-
-      <!-- Finder -->
-      <section class="win wide" id="win-finder" data-app="finder" style="left:10%;top:10%">
-        <div class="win-bar"><span class="traffic"><button class="t-close" aria-label="关闭" style="background:#ff5f57"></button><button class="t-min" aria-label="最小化" style="background:#febc2e"></button><i style="background:#28c840"></i></span><span class="win-title">访达 · 文档</span><span style="width:52px"></span></div>
-        <div class="win-body" style="padding:0">
-          <div class="finder">
-            <aside class="finder-side">
-              <h4>个人收藏</h4>
-              <span class="side-item on">全部</span>
-              <span class="side-item">最近使用</span>
-              <h4>标签</h4>
-              <span class="side-item">清醒</span>
-              <span class="side-item">语录</span>
-              <span class="side-item">静雪月风</span>
-              <span class="side-item">音乐</span>
-              <span class="side-item">相册</span>
-              <h4>位置</h4>
-              <span class="side-item">jujujuhappy.win</span>
-            </aside>
-            <div class="finder-main">
-              <table>
-                <thead><tr><th>名称</th><th>种类</th><th>大小</th></tr></thead>
-                <tbody>
-                  <tr class="frow" data-app="safari"><td class="fname">清醒自持.txt</td><td>文稿</td><td>—</td></tr>
-                  <tr class="frow" data-app="photos"><td class="fname">JYC.jpg</td><td>图片</td><td>361 KB</td></tr>
-                  <tr class="frow" data-app="music"><td class="fname">风犬少年的天空.mp3</td><td>音乐</td><td>8.7 MB</td></tr>
-                  <tr class="frow" data-app="quote"><td class="fname">慢慢来，一切皆有回音.txt</td><td>文稿</td><td>—</td></tr>
-                  <tr class="frow" data-app="kanji"><td class="fname">静雪月风.txt</td><td>文稿</td><td>—</td></tr>
-                  <tr class="frow" data-app="contacts"><td class="fname">联系方式.vcf</td><td>通讯录</td><td>—</td></tr>
-                </tbody>
-              </table>
-              <p class="finder-foot">6 个项目 · jujujuhappy.win</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Terminal -->
-      <section class="win" id="win-terminal" data-app="terminal" style="left:14%;top:16%">
-        <div class="win-bar" style="background:#2a2a2e;border-bottom-color:rgba(255,255,255,.08)"><span class="traffic"><button class="t-close" aria-label="关闭" style="background:#ff5f57"></button><button class="t-min" aria-label="最小化" style="background:#febc2e"></button><i style="background:#28c840"></i></span><span class="win-title" style="color:#ccc">jyc —— -zsh —— 80×24</span><span style="width:52px"></span></div>
-        <div class="win-body dark">
-          <div class="term">
-            <div class="term-out" id="termOut"><span class="tp">jyc@os ~ $</span> jyc --about
-<span class="to">Journey Yields Crescent v2026</span>
-清醒自持 · 不以物喜，不以己悲。
-走过漫长独行的路途，温柔且有锋芒。
-所有沉淀与奔赴，终会迎来属于自己的弯月星光。
-<span class="tdim"># 输入 help 查看可用命令，回车执行。</span></div>
-            <div class="term-input-row"><span class="tp">jyc@os ~ $</span><input class="term-input" id="termInput" type="text" placeholder="" autocomplete="off" spellcheck="false" aria-label="终端输入"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Contacts -->
-      <section class="win wide" id="win-contacts" data-app="contacts" style="left:8%;top:8%">
-        <div class="win-bar"><span class="traffic"><button class="t-close" aria-label="关闭" style="background:#ff5f57"></button><button class="t-min" aria-label="最小化" style="background:#febc2e"></button><i style="background:#28c840"></i></span><span class="win-title">通讯录 · 联系</span><span style="width:52px"></span></div>
-        <div class="win-body" style="padding:0">
-          <div class="contacts">
-            <div class="contacts-list" id="contactList">
-              <button class="contact-item on" data-contact="ig"><span class="ci-av">◎</span><span><span class="ci-name">Instagram</span><br><span class="ci-sub">aeo.ju</span></span></button>
-              <button class="contact-item" data-contact="wx"><span class="ci-av" style="background:linear-gradient(145deg,#3ecf7a,#07c160)">微</span><span><span class="ci-name">微信</span><br><span class="ci-sub">aeo_cn</span></span></button>
-              <button class="contact-item" data-contact="mail"><span class="ci-av" style="background:linear-gradient(145deg,#8fb4d9,#4a6a8a)">@</span><span><span class="ci-name">Email</span><br><span class="ci-sub">apero.ju@gmail.com</span></span></button>
-            </div>
-            <div class="contacts-detail" id="contactDetail"></div>
-          </div>
-          <p class="foot" style="padding:0 20px 18px">3 张名片 · © 2026 jujujuhappy.win</p>
-        </div>
-      </section>
-
-      <!-- Music -->
-      <section class="win narrow" id="win-music" data-app="music" style="left:20%;top:12%">
-        <div class="win-bar"><span class="traffic"><button class="t-close" aria-label="关闭" style="background:#ff5f57"></button><button class="t-min" aria-label="最小化" style="background:#febc2e"></button><i style="background:#28c840"></i></span><span class="win-title">音乐 · 风犬少年的天空</span><span style="width:52px"></span></div>
-        <div class="win-body">
-          <div class="player-art"><img src="JYC.jpg" alt="风犬少年的天空"></div>
-          <div class="player-track">风犬少年的天空</div>
-          <div class="player-artist">Journey Yields Crescent</div>
-          <div class="progress" id="progress"><i id="progressFill"></i></div>
-          <div class="time-row"><span id="curTime">0:00</span><span id="durTime">0:00</span></div>
-          <div class="player-controls"><button class="play-btn" id="bigPlayBtn" aria-label="播放或暂停">▶</button></div>
-          <p class="foot">点 ▶ 播放 · 循环播放</p>
-        </div>
-      </section>
-
-      <!-- Photos -->
-      <section class="win narrow" id="win-photos" data-app="photos" style="left:16%;top:6%">
-        <div class="win-bar"><span class="traffic"><button class="t-close" aria-label="关闭" style="background:#ff5f57"></button><button class="t-min" aria-label="最小化" style="background:#febc2e"></button><i style="background:#28c840"></i></span><span class="win-title">相册 · JYC.jpg</span><span style="width:52px"></span></div>
-        <div class="win-body">
-          <div class="photo"><img src="JYC.jpg" alt="JYC"></div>
-          <p class="center">JYC — 上海 · 夜</p>
-        </div>
-      </section>
-
-      <!-- Quote -->
-      <section class="win narrow" id="win-quote" data-app="quote" style="left:22%;top:18%">
-        <div class="win-bar"><span class="traffic"><button class="t-close" aria-label="关闭" style="background:#ff5f57"></button><button class="t-min" aria-label="最小化" style="background:#febc2e"></button><i style="background:#28c840"></i></span><span class="win-title">语录</span><span style="width:52px"></span></div>
-        <div class="win-body center">
-          <div class="quote-mark">❅</div>
-          <p class="quote">「慢慢来，一切皆有回音。」</p>
-          <div class="divider"></div>
-          <p class="attr">风犬少年的天空</p>
-        </div>
-      </section>
-
-      <!-- Kanji -->
-      <section class="win narrow" id="win-kanji" data-app="kanji" style="left:18%;top:14%">
-        <div class="win-bar"><span class="traffic"><button class="t-close" aria-label="关闭" style="background:#ff5f57"></button><button class="t-min" aria-label="最小化" style="background:#febc2e"></button><i style="background:#28c840"></i></span><span class="win-title">静雪月风</span><span style="width:52px"></span></div>
-        <div class="win-body">
-          <div class="kanji-row">
-            <div class="kanji-cell"><div class="kc">静</div><div class="kr">静けさ</div></div>
-            <div class="kanji-cell"><div class="kc">雪</div><div class="kr">ゆき</div></div>
-            <div class="kanji-cell"><div class="kc">月</div><div class="kr">つき</div></div>
-            <div class="kanji-cell"><div class="kc">風</div><div class="kr">かぜ</div></div>
-          </div>
-          <p class="center">静 · 雪 · 月 · 風</p>
-        </div>
-      </section>
-
-      <!-- WeChat -->
-      <section class="win narrow" id="win-wechat" data-app="wechat" style="left:24%;top:10%">
-        <div class="win-bar"><span class="traffic"><button class="t-close" aria-label="关闭" style="background:#ff5f57"></button><button class="t-min" aria-label="最小化" style="background:#febc2e"></button><i style="background:#28c840"></i></span><span class="win-title">微信 · 加好友</span><span style="width:52px"></span></div>
-        <div class="win-body">
-          <div class="wx-card">
-            <div class="wx-ava"><img src="JYC.jpg" alt="JYC"></div>
-            <div class="wx-id">aeo_cn</div>
-            <div class="wx-sub">Journey Yields Crescent · 上海</div>
-            <button class="wx-copy" id="wxCopyBtn">复制微信号</button>
-            <p class="wx-note" id="wxNote">在微信里搜索 aeo_cn 加好友</p>
-          </div>
-        </div>
-      </section>
     </div>
 
-    <div class="dock-wrap">
-      <div class="mini-player" id="miniPlayer">
-        <img src="JYC.jpg" alt="">
-        <div class="mp-text"><div class="mp-title">风犬少年的天空</div><div class="mp-sub">Journey Yields Crescent</div></div>
-        <button class="mp-btn" id="miniPlayBtn" aria-label="播放或暂停">▶</button>
+    <!-- Lock screen -->
+    <section class="screen" id="lockScreen" role="button" aria-label="点击进入主屏幕" tabindex="0">
+      <div class="lock-date" id="lockDate">--月--日 星期--</div>
+      <div class="lock-time" id="lockTime">--:--</div>
+      <div class="lock-avatar"><img src="JYC.jpg" alt="JYC"></div>
+      <div class="lock-name">Journey Yields Crescent</div>
+      <div class="lock-enter">
+        <div class="lock-pill">进入主页</div>
+        <div class="lock-hint">上 滑 进 入 ⌃</div>
       </div>
-      <nav class="dock" aria-label="Dock">
-        <button class="dock-btn" data-app="terminal"><span class="dock-tip">关于 · 终端</span><span class="dock-icon t-dark mono">&gt;_</span><span class="dock-dot"></span></button>
-        <button class="dock-btn" data-app="finder"><span class="dock-tip">文档 · 访达</span><span class="dock-icon t-finder">☺</span><span class="dock-dot"></span></button>
-        <button class="dock-btn" data-app="safari"><span class="dock-tip">清醒自持 · 浏览器</span><span class="dock-icon t-safari">◉</span><span class="dock-dot"></span></button>
-        <button class="dock-btn" data-app="contacts"><span class="dock-tip">联系 · 通讯录</span><span class="dock-icon t-contact">👤</span><span class="dock-dot"></span></button>
-        <button class="dock-btn" data-app="music"><span class="dock-tip">音乐 · 风犬少年的天空</span><span class="dock-icon t-green">♫<span class="badge" id="musicBadge" hidden>1</span></span><span class="dock-dot"></span></button>
-        <button class="dock-btn" data-app="photos"><span class="dock-tip">相册 · JYC</span><span class="dock-icon t-blue">◐</span><span class="dock-dot"></span></button>
-        <button class="dock-btn" data-app="quote"><span class="dock-tip">语录 · 慢慢来</span><span class="dock-icon t-lav serif">❅</span><span class="dock-dot"></span></button>
-        <a class="dock-btn" href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener"><span class="dock-tip">Instagram · aeo.ju</span><span class="dock-icon t-ig">◎</span><span class="dock-dot"></span></a>
-        <button class="dock-btn" data-app="wechat"><span class="dock-tip">微信 · aeo_cn</span><span class="dock-icon t-wx">💬</span><span class="dock-dot"></span></button>
-      </nav>
+    </section>
+
+    <!-- Home screen -->
+    <section class="screen" id="homeScreen">
+      <div class="home-scroll">
+        <div class="app-grid">
+          <button class="app" data-app="safari">
+            <span class="app-icon t-black"><span class="glyph">清</span></span>
+            <span class="app-label">清醒</span>
+          </button>
+          <a class="app" href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener">
+            <span class="app-icon t-ig"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.4"/><circle cx="17.4" cy="6.6" r="1.3" fill="#fff" stroke="none"/></svg></span>
+            <span class="app-label">Instagram</span>
+          </a>
+          <button class="app" data-app="photos">
+            <span class="app-icon t-red"><span class="glyph">◐</span></span>
+            <span class="app-label">相册</span>
+          </button>
+          <button class="app" data-app="music">
+            <span class="app-icon t-pink"><span class="glyph">♫</span><span class="badge" id="musicBadge" hidden>1</span></span>
+            <span class="app-label">音乐</span>
+          </button>
+          <button class="app" data-app="quote">
+            <span class="app-icon t-orange"><span class="glyph">❅</span></span>
+            <span class="app-label">语录</span>
+          </button>
+          <button class="app" data-app="wechat">
+            <span class="app-icon t-green"><svg viewBox="0 0 24 24" fill="#fff"><path d="M9.5 4C5.4 4 2 6.9 2 10.4c0 2 1.1 3.8 2.8 4.9L4 18l2.9-1.5c.8.2 1.7.4 2.6.4h.3c-.1-.5-.2-1-.2-1.5 0-3.2 3-5.8 6.7-5.8.4 0 .8 0 1.2.1C16.9 6.3 13.5 4 9.5 4ZM7.2 8.2c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9Zm4.6 0c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9Z"/><path d="M16.4 11.1c-3.1 0-5.6 2.1-5.6 4.7 0 2.6 2.5 4.7 5.6 4.7.4 0 .9 0 1.3-.1l2.3 1.2-.6-2.1c1.4-.9 2.3-2.3 2.3-3.9 0-2.6-2.4-4.5-5.3-4.5Zm-2.2 2.4c.4 0 .7.3.7.7s-.3.7-.7.7-.7-.3-.7-.7.3-.7.7-.7Zm4.4 0c.4 0 .7.3.7.7s-.3.7-.7.7-.7-.3-.7-.7.3-.7.7-.7Z"/></svg></span>
+            <span class="app-label">微信</span>
+          </button>
+        </div>
+
+        <div class="mini-player" id="miniPlayer">
+          <img src="JYC.jpg" alt="">
+          <div class="mp-text">
+            <div class="mp-title">风犬少年的天空</div>
+            <div class="mp-sub">Journey Yields Crescent</div>
+          </div>
+          <button class="mp-btn" id="miniPlayBtn" aria-label="播放或暂停">▶</button>
+        </div>
+      </div>
+
+      <div class="dock">
+        <button class="app" data-app="terminal"><span class="app-icon t-black mono" style="font-size:20px">&gt;_</span></button>
+        <button class="app" data-app="finder"><span class="app-icon t-finder"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2C8 2 5 4.6 4.3 8.2 3.5 12.6 5 17.5 8.2 20c1.2 1 2.5 1.6 3.8 1.6s2.6-.6 3.8-1.6c3.2-2.5 4.7-7.4 3.9-11.8C19 4.6 16 2 12 2Z"/><path fill="#1e6fd9" d="M12 2v20c1.3 0 2.6-.6 3.8-1.6 3.2-2.5 4.7-7.4 3.9-11.8C19 4.6 16 2 12 2Z"/><circle cx="9" cy="10" r="1.1" fill="#1e1e1e"/><circle cx="15" cy="10" r="1.1" fill="#1e1e1e"/><path d="M8.5 14.5c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8" fill="none" stroke="#1e1e1e" stroke-width="1.3" stroke-linecap="round"/></svg></span></button>
+        <button class="app" data-app="safari"><span class="app-icon t-safari"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff" stroke="#c8d8ea"/><circle cx="12" cy="12" r="8.4" fill="none" stroke="#7aa5d2" stroke-width=".7"/><path d="M15.5 8.5 13.4 13.4 8.5 15.5 10.6 10.6Z" fill="#e0393e"/><path d="M15.5 8.5 13.4 13.4 12 12Z" fill="#3a7bd5"/></svg></span></button>
+        <button class="app" data-app="contacts"><span class="app-icon t-contact"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 19.5c1.2-3.2 3.6-4.8 6.5-4.8s5.3 1.6 6.5 4.8"/></svg></span></button>
+      </div>
+    </section>
+
+    <!-- App view -->
+    <div class="app-view" id="appView" aria-hidden="true">
+      <div class="app-bar">
+        <span class="ab-spacer"></span>
+        <span class="ab-title" id="appTitle">应用</span>
+        <button class="ab-close" id="appClose" aria-label="关闭">✕</button>
+      </div>
+      <div class="app-body" id="appBody"></div>
     </div>
   </div>
+  <div class="stage-hint">点 击 进 入 · 点 图 标 打 开 应 用</div>
 </div>
 
 <audio id="bgm" src="JYC.mp3" loop preload="metadata"></audio>
@@ -555,131 +309,78 @@ const WEEK=["日","一","二","三","四","五","六"];
 function tick(){
   const d=new Date();
   const hh=String(d.getHours()).padStart(2,"0"), mm=String(d.getMinutes()).padStart(2,"0");
-  const dateStr=(d.getMonth()+1)+"月"+d.getDate()+"日 星期"+WEEK[d.getDay()];
-  document.getElementById("lockDate").textContent=dateStr;
+  document.getElementById("sbTime").textContent=hh+":"+mm;
   document.getElementById("lockTime").textContent=hh+":"+mm;
-  document.getElementById("mbClock").textContent=dateStr+" "+hh+":"+mm;
+  document.getElementById("lockDate").textContent=(d.getMonth()+1)+"月"+d.getDate()+"日 星期"+WEEK[d.getDay()];
 }
 tick(); setInterval(tick,10000);
 
-// ---- snow ----
-const canvas=document.getElementById("snowCanvas"), ctx=canvas.getContext("2d");
-const os=document.getElementById("os");
-let flakes=[];
-function resizeCanvas(){
-  canvas.width=os.clientWidth; canvas.height=os.clientHeight;
-  flakes=Array.from({length:50},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,
-    r:Math.random()*2.2+0.8,o:Math.random()*0.5+0.3,s:Math.random()*0.6+0.2,w:Math.random()*0.4-0.2}));
-}
-resizeCanvas(); window.addEventListener("resize",resizeCanvas);
-(function snow(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  flakes.forEach(f=>{f.y+=f.s; f.x+=f.w+Math.sin(f.y*0.02)*0.3;
-    if(f.y>canvas.height+10){f.y=-10;f.x=Math.random()*canvas.width;}
-    ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
-    ctx.fillStyle="rgba(255,255,255,"+f.o+")"; ctx.fill();});
-  requestAnimationFrame(snow);
-})();
-
-// ---- lock -> desktop ----
-const lock=document.getElementById("lockScreen"), desktop=document.getElementById("desktop");
-let unlocked=false, startY=null;
+// ---- lock -> home ----
+const lock=document.getElementById("lockScreen"), home=document.getElementById("homeScreen");
+let startY=null, unlocked=false;
 function unlock(){
   if(unlocked) return; unlocked=true;
-  lock.classList.add("hidden"); desktop.classList.add("show");
-  setTimeout(()=>{
-    if(window.innerWidth<768){ openApp("safari"); }
-    else { openApp("safari"); openApp("finder"); openApp("terminal"); }
-  },450);
+  lock.classList.add("hidden"); home.classList.add("show");
 }
 lock.addEventListener("click",unlock);
 lock.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();unlock();}});
 lock.addEventListener("touchstart",e=>{startY=e.touches[0].clientY;},{passive:true});
-lock.addEventListener("touchend",e=>{ if(startY!==null && startY-e.changedTouches[0].clientY>40) unlock(); startY=null; },{passive:true});
+lock.addEventListener("touchend",e=>{
+  if(startY!==null && startY-e.changedTouches[0].clientY>40) unlock();
+  startY=null;
+},{passive:true});
 
-// ---- window manager ----
-let zTop=30;
-function focusWin(win){
-  zTop+=1; win.style.zIndex=zTop;
-  document.querySelectorAll(".win").forEach(w=>w.classList.remove("focused"));
-  win.classList.add("focused");
-}
+// ---- apps ----
+const APPS={
+  safari:{title:"清醒",dark:false,html:'<p class="pre">HOKKAIDO</p><div class="hero-big">清醒<span class="hl">自持</span></div><p style="margin-top:16px">Journey Yields Crescent<br>不以物喜，不以己悲。</p><div class="photo" style="margin-top:22px"><img src="JYC.jpg" alt="JYC"></div><h2>Journey Yields Crescent</h2><div class="loc">上海 · SHANGHAI</div><p>走过漫长独行的路途，<br>温柔且有锋芒。<br>所有沉淀与奔赴，<br>终会迎来属于自己的弯月星光。</p><div class="center" style="margin-top:26px"><div class="quote-mark">❅</div><p class="quote">「慢慢来，一切皆有回音。」</p><div class="divider"></div><p class="attr">风犬少年的天空</p></div><div class="kanji-row"><div class="kanji-cell"><div class="kc">静</div><div class="kr">静けさ</div></div><div class="kanji-cell"><div class="kc">雪</div><div class="kr">ゆき</div></div><div class="kanji-cell"><div class="kc">月</div><div class="kr">つき</div></div><div class="kanji-cell"><div class="kc">風</div><div class="kr">かぜ</div></div></div><p class="foot">© 2026 jujujuhappy.win</p>'},
+  finder:{title:"访达 · 文档",dark:false,html:'<div class="finder-side"><span class="on">全部</span><span>清醒</span><span>语录</span><span>静雪月风</span><span>音乐</span><span>相册</span></div><table class="finder-table"><thead><tr><th>名称</th><th>种类</th><th>大小</th></tr></thead><tbody><tr class="frow" data-app="safari"><td class="fname">清醒自持.txt</td><td>文稿</td><td>—</td></tr><tr class="frow" data-app="photos"><td class="fname">JYC.jpg</td><td>图片</td><td>361 KB</td></tr><tr class="frow" data-app="music"><td class="fname">风犬少年的天空.mp3</td><td>音乐</td><td>8.7 MB</td></tr><tr class="frow" data-app="quote"><td class="fname">慢慢来，一切皆有回音.txt</td><td>文稿</td><td>—</td></tr><tr class="frow" data-app="kanji"><td class="fname">静雪月风.txt</td><td>文稿</td><td>—</td></tr><tr class="frow" data-app="contacts"><td class="fname">联系方式.vcf</td><td>通讯录</td><td>—</td></tr></tbody></table><p class="finder-foot">6 个项目 · jujujuhappy.win</p>'},
+  terminal:{title:"终端",dark:true,html:'<div class="term"><div class="term-out" id="termOut"><span class="tp">jyc@os ~ $</span> jyc --about\n<span class="to">Journey Yields Crescent v2026</span>\n清醒自持 · 不以物喜，不以己悲。\n走过漫长独行的路途，温柔且有锋芒。\n所有沉淀与奔赴，终会迎来属于自己的弯月星光。\n<span class="tdim"># 输入 help 查看可用命令，回车执行。</span></div><div class="term-input-row"><span class="tp">jyc@os ~ $</span><input class="term-input" id="termInput" type="text" autocomplete="off" spellcheck="false" aria-label="终端输入"></div></div>'},
+  contacts:{title:"通讯录",dark:false,html:'<h2>連絡</h2><div class="contact-list"><button class="contact-row" data-contact="ig"><span class="ci">◎</span><span><span class="cl">Instagram</span><br><span class="cv">aeo.ju</span></span><span class="go">›</span></button><button class="contact-row" data-contact="wx"><span class="ci" style="background:linear-gradient(145deg,#3ecf7a,#07c160)">微</span><span><span class="cl">微信</span><br><span class="cv">aeo_cn</span></span><span class="go">›</span></button><button class="contact-row" data-contact="mail"><span class="ci" style="background:linear-gradient(145deg,#8fb4d9,#4a6a8a)">@</span><span><span class="cl">Email</span><br><span class="cv">apero.ju@gmail.com</span></span><span class="go">›</span></button></div><div class="contact-detail" id="contactDetail"></div><p class="foot">3 张名片 · © 2026 jujujuhappy.win</p>'},
+  music:{title:"音乐",dark:false,html:'<div class="player-art"><img src="JYC.jpg" alt="风犬少年的天空"></div><div class="player-track">风犬少年的天空</div><div class="player-artist">Journey Yields Crescent</div><div class="progress" id="progress"><i id="progressFill"></i></div><div class="time-row"><span id="curTime">0:00</span><span id="durTime">0:00</span></div><div class="player-controls"><button class="play-btn" id="bigPlayBtn" aria-label="播放或暂停">▶</button></div><p class="player-note">点 ▶ 播放 · 循环播放</p>'},
+  photos:{title:"相册",dark:false,html:'<div class="photo"><img src="JYC.jpg" alt="JYC"></div><p class="center">JYC — 上海 · 夜</p>'},
+  quote:{title:"语录",dark:false,html:'<div class="center"><div class="quote-mark">❅</div><p class="quote">「慢慢来，一切皆有回音。」</p><div class="divider"></div><p class="attr">风犬少年的天空</p></div>'},
+  kanji:{title:"静雪月风",dark:false,html:'<div class="kanji-row"><div class="kanji-cell"><div class="kc">静</div><div class="kr">静けさ</div></div><div class="kanji-cell"><div class="kc">雪</div><div class="kr">ゆき</div></div><div class="kanji-cell"><div class="kc">月</div><div class="kr">つき</div></div><div class="kanji-cell"><div class="kc">風</div><div class="kr">かぜ</div></div></div><p class="center">静 · 雪 · 月 · 風</p>'},
+  wechat:{title:"微信",dark:false,html:'<div class="wx-card"><div class="wx-ava"><img src="JYC.jpg" alt="JYC"></div><div class="wx-id">aeo_cn</div><div class="wx-sub">Journey Yields Crescent · 上海</div><button class="wx-copy" id="wxCopyBtn">复制微信号</button><p class="wx-note" id="wxNote">在微信里搜索 aeo_cn 加好友</p></div>'}
+};
+const CONTACTS={
+  ig:{av:"◎",name:"Instagram",sub:"aeo.ju",btn:'<a class="chip-btn" href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener">打开 Instagram ›</a>'},
+  wx:{av:"微",name:"微信",sub:"aeo_cn",btn:'<button class="chip-btn" id="cdWxCopy">复制微信号</button>'},
+  mail:{av:"@",name:"Email",sub:"apero.ju@gmail.com",btn:'<a class="chip-btn" href="mailto:apero.ju@gmail.com">写邮件 ›</a>'}
+};
+const view=document.getElementById("appView"),
+      appTitle=document.getElementById("appTitle"),
+      appBody=document.getElementById("appBody");
 function openApp(name){
-  const win=document.querySelector('.win[data-app="'+name+'"]');
-  if(!win) return;
-  win.classList.add("open"); focusWin(win);
-  document.querySelectorAll('[data-app="'+name+'"].dock-btn').forEach(b=>b.classList.add("active"));
-  if(name==="terminal"){ const inp=document.getElementById("termInput"); if(inp && window.innerWidth>768) inp.focus(); }
+  const a=APPS[name]; if(!a) return;
+  appTitle.textContent=a.title; appBody.innerHTML=a.html;
+  appBody.classList.toggle("dark",!!a.dark);
+  appBody.scrollTop=0; view.classList.add("open"); view.setAttribute("aria-hidden","false");
+  appBody.querySelectorAll("[data-app]").forEach(el=>el.addEventListener("click",()=>openApp(el.dataset.app)));
+  appBody.querySelectorAll("[data-contact]").forEach(el=>el.addEventListener("click",()=>renderContact(el.dataset.contact)));
+  if(name==="music") bindPlayer();
+  if(name==="terminal") bindTerminal();
+  if(name==="contacts") renderContact("ig");
+  if(name==="wechat"){
+    document.getElementById("wxCopyBtn").addEventListener("click",function(){
+      copyText("aeo_cn",this);
+      document.getElementById("wxNote").textContent="已复制微信号 aeo_cn";
+    });
+  }
 }
-function closeApp(name){
-  const win=document.querySelector('.win[data-app="'+name+'"]');
-  if(win) win.classList.remove("open");
-  document.querySelectorAll('[data-app="'+name+'"].dock-btn').forEach(b=>b.classList.remove("active"));
-}
-document.querySelectorAll("[data-app]").forEach(el=>{
-  el.addEventListener("click",e=>{
-    if(el.classList.contains("frow")||el.closest(".dropdown")){ /* fall through */ }
-    openApp(el.dataset.app);
-  });
-});
-document.querySelectorAll(".win").forEach(win=>{
-  const name=win.dataset.app;
-  const closeBtn=win.querySelector(".t-close");
-  if(closeBtn) closeBtn.addEventListener("click",e=>{e.stopPropagation();closeApp(name);});
-  const minBtn=win.querySelector(".t-min");
-  if(minBtn) minBtn.addEventListener("click",e=>{e.stopPropagation();closeApp(name);});
-  win.addEventListener("pointerdown",()=>focusWin(win));
-  // drag (desktop only)
-  const bar=win.querySelector(".win-bar");
-  bar.addEventListener("pointerdown",e=>{
-    if(window.innerWidth<768) return;
-    if(e.target.closest(".t-close,.t-min")) return;
-    const ws=document.getElementById("workspace").getBoundingClientRect();
-    const r=win.getBoundingClientRect();
-    const dx=e.clientX-r.left, dy=e.clientY-r.top;
-    function move(ev){
-      let x=ev.clientX-ws.left-dx, y=ev.clientY-ws.top-dy;
-      x=Math.max(-r.width+120,Math.min(x,ws.width-120));
-      y=Math.max(0,Math.min(y,ws.height-60));
-      win.style.left=x+"px"; win.style.top=y+"px";
-    }
-    function up(){ window.removeEventListener("pointermove",move); window.removeEventListener("pointerup",up); }
-    window.addEventListener("pointermove",move); window.addEventListener("pointerup",up);
-  });
-});
-// desktop icons: single click selects, double click opens
-document.querySelectorAll(".desk-icon").forEach(el=>{
-  el.addEventListener("click",()=>{
-    document.querySelectorAll(".desk-icon").forEach(d=>d.classList.remove("sel"));
-    el.classList.add("sel");
-  });
-  el.addEventListener("dblclick",()=>openApp(el.dataset.app));
-});
-// go menu
-const goBtn=document.getElementById("goBtn"), goMenu=document.getElementById("goMenu");
-goBtn.addEventListener("click",e=>{e.stopPropagation();goMenu.classList.toggle("show");goBtn.classList.toggle("open");});
-document.addEventListener("click",()=>{goMenu.classList.remove("show");goBtn.classList.remove("open");});
-goMenu.querySelectorAll("[data-app]").forEach(b=>b.addEventListener("click",()=>{goMenu.classList.remove("show");}));
+function closeApp(){ view.classList.remove("open"); view.setAttribute("aria-hidden","true"); }
+document.querySelectorAll("[data-app]").forEach(b=>b.addEventListener("click",()=>openApp(b.dataset.app)));
+document.getElementById("appClose").addEventListener("click",closeApp);
 
 // ---- contacts ----
-const CONTACTS={
-  ig:{av:"◎",name:"Instagram",sub:"aeo.ju",bio:"Journey Yields Crescent —— Instagram：aeo.ju。",btn:'<a class="chip-btn" href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener" style="text-decoration:none">打开 Instagram ›</a>'},
-  wx:{av:"微",name:"微信",sub:"aeo_cn",bio:"微信号：aeo_cn。在微信里搜索 aeo_cn 加好友。",btn:'<button class="chip-btn" id="cdWxCopy">复制微信号</button>'},
-  mail:{av:"@",name:"Email",sub:"apero.ju@gmail.com",bio:"邮箱：apero.ju@gmail.com。",btn:'<a class="chip-btn" href="mailto:apero.ju@gmail.com" style="text-decoration:none">写邮件 ›</a>'}
-};
 function renderContact(key){
-  const c=CONTACTS[key];
-  document.getElementById("contactDetail").innerHTML=
-    '<div class="cd-av">'+c.av+'</div><h3>'+c.name+'</h3><div class="cd-sub">'+c.sub+'</div>'+
-    '<div class="cd-btns">'+c.btn+'</div><p class="cd-bio">'+c.bio+'</p>';
+  const c=CONTACTS[key], d=document.getElementById("contactDetail");
+  if(!d) return;
+  d.innerHTML='<div class="cd-av">'+c.av+'</div><h3>'+c.name+'</h3><div class="cd-sub">'+c.sub+'</div>'+c.btn;
   const cp=document.getElementById("cdWxCopy");
-  if(cp) cp.addEventListener("click",()=>{ copyText("aeo_cn",cp); });
-  document.querySelectorAll(".contact-item").forEach(b=>b.classList.toggle("on",b.dataset.contact===key));
+  if(cp) cp.addEventListener("click",()=>copyText("aeo_cn",cp));
 }
-document.querySelectorAll(".contact-item").forEach(b=>b.addEventListener("click",()=>renderContact(b.dataset.contact)));
-renderContact("ig");
 function copyText(text,btn){
-  const done=()=>{ if(btn){ btn.textContent="已复制 ✓"; setTimeout(()=>{btn.textContent="复制微信号";},1600);} };
+  const done=()=>{ if(btn){ const old=btn.textContent; btn.textContent="已复制 ✓"; setTimeout(()=>{btn.textContent=old;},1600);} };
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(()=>{ fallbackCopy(text); done(); }); }
   else { fallbackCopy(text); done(); }
 }
@@ -687,29 +388,28 @@ function fallbackCopy(text){
   const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta);
   ta.select(); try{document.execCommand("copy");}catch(e){} document.body.removeChild(ta);
 }
-document.getElementById("wxCopyBtn").addEventListener("click",function(){
-  copyText("aeo_cn",this);
-  document.getElementById("wxNote").textContent="已复制微信号 aeo_cn";
-});
 
 // ---- terminal ----
-const termOut=document.getElementById("termOut"), termInput=document.getElementById("termInput");
-function termPrint(html){ termOut.innerHTML+=html; termOut.parentElement.parentElement.scrollTop=termOut.parentElement.parentElement.scrollHeight; }
-termInput.addEventListener("keydown",e=>{
-  if(e.key!=="Enter") return;
-  const cmd=termInput.value.trim(); termInput.value="";
-  termPrint('\n<span class="tp">jyc@os ~ $</span> '+cmd.replace(/</g,"&lt;")+'\n');
-  const c=cmd.toLowerCase();
-  if(c==="" ){}
-  else if(c==="help"){ termPrint('可用命令：about · contact · quote · music · date · clear\n'); }
-  else if(c==="about"){ termPrint('Journey Yields Crescent\n清醒自持 · 不以物喜，不以己悲。\n上海 · SHANGHAI\n走过漫长独行的路途，温柔且有锋芒。\n所有沉淀与奔赴，终会迎来属于自己的弯月星光。\n'); }
-  else if(c==="contact"){ termPrint('Instagram aeo.ju · 微信 aeo_cn · Email apero.ju@gmail.com\n'); }
-  else if(c==="quote"){ termPrint('「慢慢来，一切皆有回音。」—— 风犬少年的天空\n'); }
-  else if(c==="music"){ termPrint('正在播放：风犬少年的天空（JYC.mp3）\n'); openApp("music"); togglePlay(true); }
-  else if(c==="date"){ termPrint(new Date().toString()+'\n'); }
-  else if(c==="clear"){ termOut.innerHTML=""; }
-  else { termPrint('未知命令：'+cmd.replace(/</g,"&lt;")+'（输入 help 查看）\n'); }
-});
+function bindTerminal(){
+  const out=document.getElementById("termOut"), inp=document.getElementById("termInput");
+  if(!out||!inp) return;
+  inp.addEventListener("keydown",e=>{
+    if(e.key!=="Enter") return;
+    const cmd=inp.value.trim(); inp.value="";
+    out.innerHTML+='\n<span class="tp">jyc@os ~ $</span> '+cmd.replace(/</g,"&lt;")+'\n';
+    const c=cmd.toLowerCase();
+    if(c===""){ }
+    else if(c==="help"){ out.innerHTML+='可用命令：about · contact · quote · music · date · clear\n'; }
+    else if(c==="about"){ out.innerHTML+='Journey Yields Crescent\n清醒自持 · 不以物喜，不以己悲。\n上海 · SHANGHAI\n走过漫长独行的路途，温柔且有锋芒。\n所有沉淀与奔赴，终会迎来属于自己的弯月星光。\n'; }
+    else if(c==="contact"){ out.innerHTML+='Instagram aeo.ju · 微信 aeo_cn · Email apero.ju@gmail.com\n'; }
+    else if(c==="quote"){ out.innerHTML+='「慢慢来，一切皆有回音。」—— 风犬少年的天空\n'; }
+    else if(c==="music"){ out.innerHTML+='正在播放：风犬少年的天空（JYC.mp3）\n'; togglePlay(true); }
+    else if(c==="date"){ out.innerHTML+=new Date().toString()+'\n'; }
+    else if(c==="clear"){ out.innerHTML=""; }
+    else { out.innerHTML+='未知命令：'+cmd.replace(/</g,"&lt;")+'（输入 help 查看）\n'; }
+    appBody.scrollTop=appBody.scrollHeight;
+  });
+}
 
 // ---- music ----
 const bgm=document.getElementById("bgm");
@@ -717,7 +417,7 @@ const miniPlayer=document.getElementById("miniPlayer"),
       miniPlayBtn=document.getElementById("miniPlayBtn"),
       musicBadge=document.getElementById("musicBadge");
 let playing=false;
-function fmt(s){ if(!isFinite(s)) return "0:00"; s=Math.floor(s); return Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }
+function fmt(s){ if(!isFinite(s)||s===0) return "0:00"; s=Math.floor(s); return Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }
 function syncUI(){
   const big=document.getElementById("bigPlayBtn");
   if(big) big.textContent=playing?"❚❚":"▶";
@@ -730,20 +430,29 @@ function togglePlay(force){
   if(want){ bgm.play().then(()=>{playing=true;syncUI();}).catch(()=>{}); }
   else { bgm.pause(); playing=false; syncUI(); }
 }
-document.getElementById("bigPlayBtn").addEventListener("click",()=>togglePlay());
+function bindPlayer(){
+  const big=document.getElementById("bigPlayBtn");
+  if(big) big.addEventListener("click",()=>togglePlay());
+  const bar=document.getElementById("progress");
+  if(bar) bar.addEventListener("click",e=>{
+    const r=bar.getBoundingClientRect();
+    if(bgm.duration) bgm.currentTime=((e.clientX-r.left)/r.width)*bgm.duration;
+  });
+  syncDur(); syncUI();
+}
+function syncDur(){
+  const d=document.getElementById("durTime");
+  if(d && bgm.duration) d.textContent=fmt(bgm.duration);
+}
 miniPlayBtn.addEventListener("click",()=>togglePlay());
-document.getElementById("progress").addEventListener("click",e=>{
-  const bar=e.currentTarget, r=bar.getBoundingClientRect();
-  if(bgm.duration) bgm.currentTime=((e.clientX-r.left)/r.width)*bgm.duration;
-});
 bgm.addEventListener("timeupdate",()=>{
   const f=document.getElementById("progressFill");
   if(f && bgm.duration) f.style.width=(bgm.currentTime/bgm.duration*100)+"%";
   const c=document.getElementById("curTime"); if(c) c.textContent=fmt(bgm.currentTime);
+  syncDur();
 });
-bgm.addEventListener("loadedmetadata",()=>{
-  const d=document.getElementById("durTime"); if(d) d.textContent=fmt(bgm.duration);
-});
+bgm.addEventListener("loadedmetadata",syncDur);
+bgm.addEventListener("durationchange",syncDur);
 bgm.addEventListener("ended",()=>{playing=false;syncUI();});
 syncUI();
 </script>
