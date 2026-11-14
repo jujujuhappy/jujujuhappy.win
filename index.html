@@ -2,657 +2,471 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#17122b">
 <title>Journey Yields Crescent — 北海道</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --snow: #f9f7f4;
-  --snow-deep: #f0ece6;
-  --lavender: #b8a6c4;
-  --lavender-light: #d4c8dc;
-  --lavender-deep: #7a6b8a;
-  --wood: #8b7355;
-  --wood-light: #c4a882;
-  --sage: #7d9b7e;
-  --sage-light: #a8c3a6;
-  --forest: #3d5a40;
-  --ink: #2c2c2c;
-  --ink-light: #5a5a5a;
-  --mist: rgba(255,255,255,0.6);
-  --fs-hero: clamp(2.8rem, 7vw, 5.5rem);
-  --fs-h2: clamp(1.5rem, 3.5vw, 2.2rem);
-  --fs-body: clamp(0.95rem, 2vw, 1.05rem);
-  --fs-small: 0.8rem;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --snow:#f9f7f4; --snow-deep:#f0ece6;
+  --lavender:#b8a6c4; --lavender-light:#d4c8dc; --lavender-deep:#7a6b8a;
+  --ink:#2c2c2c; --ink-light:#5a5a5a;
+  --night:#17122b; --night-2:#241c44;
+  --glass:rgba(255,255,255,.16); --glass-strong:rgba(255,255,255,.28);
 }
-
-html { scroll-behavior: smooth; font-size: 16px; }
-
-body {
-  font-family: "Noto Sans SC", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: var(--snow);
-  color: var(--ink);
-  line-height: 2;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+html,body{height:100%}
+body{
+  font-family:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  background:#0a0812 radial-gradient(1200px 600px at 20% -10%,#2b2350 0%,transparent 60%),
+             radial-gradient(900px 500px at 90% 110%,#3a2b52 0%,transparent 55%),#0a0812;
+  color:#fff; overflow:hidden; -webkit-font-smoothing:antialiased;
 }
+.serif{font-family:"Noto Serif SC","Songti SC",serif}
+button{font-family:inherit;border:0;background:none;cursor:pointer;color:inherit}
+a{color:inherit}
 
-.serif { font-family: "Noto Serif SC", "Songti SC", serif; }
+/* ---------- stage / phone frame ---------- */
+.stage{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px}
+.stage-hint{color:rgba(255,255,255,.45);font-size:12px;letter-spacing:.18em;text-align:center}
+.phone{
+  position:relative;width:min(390px,100vw);height:min(844px,100dvh);
+  border-radius:54px;overflow:hidden;background:#17122b;
+  box-shadow:0 0 0 11px #1c1c22,0 0 0 13px #3a3a44,0 40px 90px rgba(0,0,0,.7);
+  flex:none;
+}
+@media (max-width:480px){
+  .stage{padding:0;gap:0}
+  .stage-hint{display:none}
+  .phone{width:100vw;height:100dvh;border-radius:0;box-shadow:none}
+}
+/* dynamic island */
+.island{
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:60;
+  width:118px;height:34px;border-radius:20px;background:#000;
+  display:flex;align-items:center;justify-content:flex-end;padding-right:12px;
+}
+.island::after{content:"";width:10px;height:10px;border-radius:50%;background:#1a2333;box-shadow:inset 0 0 3px #000}
 
-/* Snow canvas */
-#snowCanvas {
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-  pointer-events: none;
+/* ---------- wallpaper ---------- */
+.wallpaper{position:absolute;inset:0;z-index:0;
+  background:linear-gradient(180deg,#17122b 0%,#2c2150 34%,#6f5a8a 62%,#b8a6c4 82%,#ece4f0 100%);
 }
+.wallpaper::before{ /* stars */
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 12%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 28% 6%,#fff 50%,transparent 51%),
+    radial-gradient(2px 2px at 44% 18%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 62% 8%,#fff 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 78% 16%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 88% 5%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 20% 28%,#fff 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 55% 26%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 70% 30%,#fff 50%,transparent 51%),
+    radial-gradient(1px 1px at 92% 26%,#fff 50%,transparent 51%);
+  opacity:.9;
+}
+.crescent{position:absolute;top:84px;right:34px;width:74px;height:74px;border-radius:50%;
+  background:radial-gradient(circle at 62% 38%,#fff8e6,#f3e6c8 55%,#e6d3a8);
+  box-shadow:0 0 34px rgba(255,244,200,.55);
+}
+.crescent::after{content:"";position:absolute;inset:-6px 14px 14px -14px;border-radius:50%;
+  background:linear-gradient(180deg,#241c44,#2c2150);opacity:.92}
+.mountain{position:absolute;left:0;right:0;bottom:0;z-index:1;height:230px;pointer-events:none}
+.mountain svg{width:100%;height:100%;display:block}
+#snowCanvas{position:absolute;inset:0;z-index:2;pointer-events:none}
 
-/* Nav */
-.nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: clamp(1rem, 2.5vw, 1.8rem) clamp(1.5rem, 4vw, 3rem);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background 0.5s, box-shadow 0.5s;
+/* ---------- status bar ---------- */
+.statusbar{
+  position:absolute;top:0;left:0;right:0;z-index:50;height:54px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 30px 0;color:#fff;
 }
-.nav.scrolled {
-  background: rgba(249,247,244,0.88);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
-}
-.nav-logo {
-  font-family: "Noto Serif SC", serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: 0.15em;
-  transition: opacity 0.5s;
-}
-.nav-logo .dot {
-  display: inline-block;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--lavender);
-  margin-left: 4px;
-  vertical-align: middle;
-  margin-bottom: 2px;
-}
+.statusbar .sb-time{font-size:15px;font-weight:600;letter-spacing:.04em;width:64px}
+.statusbar .sb-icons{display:flex;align-items:center;gap:6px}
+.statusbar svg{display:block}
 
-.music-btn {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  border: 1.5px solid var(--lavender-light);
-  background: transparent;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.4s;
-  color: var(--lavender-deep);
-}
-.music-btn:hover { border-color: var(--lavender); background: rgba(184,166,196,0.1); }
-.music-btn svg { width: 16px; height: 16px; }
-.music-btn.playing { border-color: var(--sage); background: rgba(125,155,126,0.1); color: var(--sage); }
-.music-btn.playing svg { animation: spin 5s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+/* ---------- lock screen ---------- */
+.screen{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;transition:transform .6s cubic-bezier(.32,.72,.24,1),opacity .5s}
+.screen.hidden{transform:translateY(-100%);opacity:0;pointer-events:none}
+#lockScreen{align-items:center;text-align:center;padding:96px 24px 34px;cursor:pointer}
+.lock-date{font-size:17px;font-weight:500;letter-spacing:.06em;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.lock-time{font-size:84px;font-weight:700;line-height:1.05;letter-spacing:-.02em;text-shadow:0 2px 24px rgba(0,0,0,.3)}
+.lock-avatar{width:92px;height:92px;border-radius:50%;overflow:hidden;margin-top:34px;
+  border:3px solid rgba(255,255,255,.85);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.lock-avatar img{width:100%;height:100%;object-fit:cover}
+.lock-name{margin-top:16px;font-size:21px;font-weight:600;letter-spacing:.08em;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.lock-sub{margin-top:6px;font-size:13px;letter-spacing:.28em;color:rgba(255,255,255,.85);text-transform:uppercase}
+.lock-enter{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:12px}
+.lock-pill{padding:11px 26px;border-radius:999px;background:rgba(255,255,255,.22);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.35);font-size:15px;font-weight:500}
+.lock-swipe{font-size:12px;letter-spacing:.2em;color:rgba(255,255,255,.75);animation:floatY 2.4s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(-5px);opacity:1}}
 
-/* Hero */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 6rem 2rem 4rem;
-  background: linear-gradient(180deg, 
-    #ece4f0 0%,
-    #e8dfec 15%,
-    #f0ece6 40%,
-    var(--snow) 70%
-  );
-  overflow: hidden;
+/* ---------- home screen ---------- */
+#homeScreen{opacity:0;pointer-events:none}
+#homeScreen.show{opacity:1;pointer-events:auto}
+.home-scroll{flex:1;overflow-y:auto;padding:66px 20px 12px;scrollbar-width:none}
+.home-scroll::-webkit-scrollbar{display:none}
+.widget{
+  border-radius:28px;padding:22px 20px 18px;margin-bottom:20px;
+  background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.32);box-shadow:0 12px 32px rgba(20,10,50,.18);
 }
-
-/* Mountain silhouette */
-.mountain {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  z-index: 2;
-  height: clamp(180px, 30vw, 320px);
+.widget .w-pre{font-size:11px;letter-spacing:.34em;color:rgba(255,255,255,.85);font-weight:500}
+.widget .w-title{font-family:"Noto Serif SC",serif;font-size:40px;font-weight:700;line-height:1.2;margin:6px 0 4px}
+.widget .w-title .hl{color:#f3e6c8}
+.widget .w-sub{font-size:13px;line-height:1.9;color:rgba(255,255,255,.92)}
+.widget .w-sub .en{display:block;letter-spacing:.12em;font-size:12px;color:rgba(255,255,255,.75)}
+.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 8px;padding:6px 2px 10px}
+.app{display:flex;flex-direction:column;align-items:center;gap:7px}
+.app-icon{
+  width:62px;height:62px;border-radius:17px;display:flex;align-items:center;justify-content:center;
+  font-size:26px;position:relative;overflow:hidden;flex:none;
+  box-shadow:0 8px 18px rgba(20,10,50,.28);transition:transform .15s;
+  background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.35);
 }
-
-.mountain svg { width: 100%; height: 100%; display: block; }
-
-/* Mist */
-.mist {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  z-index: 3;
-  height: 60px;
-  background: linear-gradient(180deg, transparent 0%, var(--snow) 100%);
+.app:active .app-icon{transform:scale(.88)}
+.app-icon img{width:100%;height:100%;object-fit:cover;display:block}
+.app-icon .glyph{font-family:"Noto Serif SC",serif;font-weight:700}
+.app-icon.tint-lav{background:linear-gradient(145deg,#cbbcd8,#8f7ba6)}
+.app-icon.tint-dark{background:linear-gradient(145deg,#3a2f5e,#17122b)}
+.app-icon.tint-moon{background:linear-gradient(145deg,#f3e6c8,#c9a86a);color:#4a3a1e}
+.app-icon.tint-green{background:linear-gradient(145deg,#7d9b7e,#3d5a40)}
+.app-icon.tint-pink{background:linear-gradient(145deg,#e8b4c8,#a86a8a)}
+.app-icon.tint-blue{background:linear-gradient(145deg,#8fb4d9,#4a6a8a)}
+.app-icon .badge{
+  position:absolute;top:5px;right:5px;min-width:18px;height:18px;border-radius:9px;
+  background:#ff3b30;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;
 }
-
-/* Lavender field hint */
-.lavender-field {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  z-index: 1;
-  height: 30%;
-  opacity: 0.6;
+.app-label{font-size:12px;font-weight:500;text-shadow:0 1px 8px rgba(0,0,0,.4);text-align:center}
+.page-dots{display:flex;justify-content:center;gap:7px;padding:6px 0 10px}
+.page-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45)}
+.page-dots i.on{background:#fff}
+/* now playing mini bar */
+.mini-player{
+  display:none;margin:2px 4px 10px;border-radius:18px;padding:10px 14px;
+  background:rgba(23,18,43,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.25);align-items:center;gap:10px;
 }
-
-.hero-content {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  max-width: 640px;
-  padding-bottom: clamp(100px, 20vw, 200px);
+.mini-player.show{display:flex}
+.mini-player img{width:38px;height:38px;border-radius:9px;object-fit:cover}
+.mini-player .mp-text{flex:1;min-width:0}
+.mini-player .mp-title{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-player .mp-sub{font-size:11px;color:rgba(255,255,255,.7)}
+.mini-player .mp-btn{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.22);font-size:15px;display:flex;align-items:center;justify-content:center}
+/* dock */
+.dock{
+  margin:0 14px 14px;border-radius:28px;padding:10px 12px;
+  background:rgba(255,255,255,.22);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.32);
+  display:flex;justify-content:space-around;
 }
+.dock .app-icon{width:58px;height:58px;border-radius:16px}
+.dock .app-label{display:none}
 
-.hero-pre {
-  font-size: var(--fs-small);
-  letter-spacing: 0.35em;
-  color: var(--lavender-deep);
-  font-weight: 500;
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
+/* ---------- app window ---------- */
+.app-view{
+  position:absolute;inset:0;z-index:40;background:var(--snow);color:var(--ink);
+  transform:translateY(102%);transition:transform .45s cubic-bezier(.32,.72,.24,1);
+  display:flex;flex-direction:column;
 }
-
-.hero-name {
-  font-family: "Noto Serif SC", serif;
-  font-size: var(--fs-hero);
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--ink);
-  margin-bottom: 1.2rem;
-  letter-spacing: 0.04em;
+.app-view.open{transform:translateY(0)}
+.app-bar{
+  flex:none;padding:56px 18px 12px;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(249,247,244,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(0,0,0,.05);position:relative;z-index:2;
 }
-
-.hero-name .hl {
-  color: var(--lavender);
-  font-weight: 700;
+.app-bar .ab-title{font-size:17px;font-weight:600}
+.app-bar .ab-close{
+  width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.06);
+  display:flex;align-items:center;justify-content:center;font-size:17px;line-height:1;
 }
-
-.hero-sub {
-  font-size: var(--fs-body);
-  color: var(--ink-light);
-  max-width: 28ch;
-  margin: 0 auto;
-  font-weight: 300;
+.app-bar .ab-spacer{width:32px}
+.app-body{flex:1;overflow-y:auto;padding:28px 26px 44px;line-height:2}
+.app-body h2{font-family:"Noto Serif SC",serif;font-size:26px;font-weight:600;line-height:1.4;margin-bottom:6px}
+.app-body .loc{font-size:12px;color:var(--lavender-deep);letter-spacing:.15em;font-weight:500;margin-bottom:16px}
+.app-body .loc::before{content:"✦ ";color:var(--lavender);font-size:10px}
+.app-body p{font-size:15px;color:var(--ink-light);font-weight:300}
+.app-body .hero-big{font-family:"Noto Serif SC",serif;font-size:52px;font-weight:700;line-height:1.25;color:var(--ink)}
+.app-body .hero-big .hl{color:var(--lavender)}
+.app-body .pre{font-size:12px;letter-spacing:.34em;color:var(--lavender-deep);font-weight:500;text-transform:uppercase;margin-bottom:14px}
+.app-body .center{text-align:center}
+.app-body .photo{width:100%;border-radius:4px;overflow:hidden;margin:8px 0 18px;border:1px solid var(--lavender-light)}
+.app-body .photo img{width:100%;display:block}
+.app-body .quote-mark{font-size:44px;color:var(--lavender-light);line-height:1}
+.app-body .quote{font-family:"Noto Serif SC",serif;font-size:24px;font-weight:600;line-height:1.8;max-width:24ch;margin:0 auto 16px}
+.app-body .divider{width:40px;height:2px;background:var(--lavender);margin:0 auto 14px}
+.app-body .attr{font-size:12px;color:var(--ink-light);letter-spacing:.15em;font-weight:500}
+.kanji-row{display:flex;justify-content:space-around;gap:8px;padding:18px 0;flex-wrap:wrap}
+.kanji-cell{text-align:center;min-width:64px}
+.kanji-cell .kc{font-family:"Noto Serif SC",serif;font-size:44px;color:var(--lavender);font-weight:700;line-height:1.1;opacity:.85}
+.kanji-cell .kr{font-size:12px;color:var(--lavender-deep);letter-spacing:.1em;margin-top:6px}
+.contact-list{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.contact-row{
+  display:flex;align-items:center;gap:14px;padding:18px;background:#fff;border-radius:14px;
+  text-decoration:none;color:var(--ink);border:1px solid rgba(0,0,0,.04);
 }
-
-.scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--lavender-deep);
-  font-size: var(--fs-small);
-  animation: fadeFloat 3s ease-in-out infinite;
-  cursor: pointer;
-  opacity: 0.7;
-}
-.scroll-hint svg { width: 16px; height: 16px; }
-@keyframes fadeFloat {
-  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
-  50% { opacity: 0.9; transform: translateX(-50%) translateY(6px); }
-}
-
-/* Profile section */
-.profile {
-  padding: clamp(4rem, 8vw, 7rem) clamp(2rem, 6vw, 4rem);
-  position: relative;
-  background: var(--snow);
-}
-
-.profile-inner {
-  max-width: 900px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
-}
-
-.profile-photo {
-  width: clamp(160px, 22vw, 220px);
-  height: clamp(160px, 22vw, 220px);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-}
-
-.profile-photo img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  filter: brightness(0.96);
-  transition: filter 0.5s;
-}
-
-.profile-photo::after {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border: 1px solid var(--lavender-light);
-  border-radius: 3px;
-  pointer-events: none;
-}
-
-.profile-text h2 {
-  font-family: "Noto Serif SC", serif;
-  font-size: var(--fs-h2);
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 0.5rem;
-}
-
-.profile-loc {
-  font-size: var(--fs-small);
-  color: var(--lavender-deep);
-  letter-spacing: 0.15em;
-  font-weight: 500;
-  margin-bottom: 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.profile-loc::before {
-  content: '✦';
-  font-size: 0.6rem;
-  color: var(--lavender);
-}
-
-.profile-desc {
-  font-size: var(--fs-body);
-  color: var(--ink-light);
-  line-height: 2.1;
-  font-weight: 300;
-}
-
-/* Quote section */
-.quote-section {
-  background: var(--snow-deep);
-  padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 6vw, 4rem);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.quote-section::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--lavender-light), transparent);
-}
-
-.quote-ornament {
-  font-size: 3rem;
-  color: var(--lavender-light);
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-
-.quote-text {
-  font-family: "Noto Serif SC", serif;
-  font-size: clamp(1.3rem, 2.8vw, 1.8rem);
-  font-weight: 600;
-  color: var(--ink);
-  max-width: 24ch;
-  margin: 0 auto 1.5rem;
-  line-height: 1.8;
-}
-
-.quote-divider {
-  width: 40px;
-  height: 2px;
-  background: var(--lavender);
-  margin: 0 auto 1rem;
-}
-
-.quote-attr {
-  font-size: var(--fs-small);
-  color: var(--ink-light);
-  letter-spacing: 0.15em;
-  font-weight: 500;
-}
-
-/* Kanji strip */
-.kanji-strip {
-  padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem);
-  display: flex;
-  justify-content: center;
-  gap: clamp(2rem, 5vw, 5rem);
-  flex-wrap: wrap;
-  background: var(--snow);
-}
-
-.kanji-item {
-  text-align: center;
-  min-width: 80px;
-}
-
-.kanji-char {
-  font-family: "Noto Serif SC", serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  color: var(--lavender);
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 0.4rem;
-  opacity: 0.7;
-}
-
-.kanji-reading {
-  font-size: var(--fs-small);
-  color: var(--lavender-deep);
-  letter-spacing: 0.1em;
-}
-
-/* Contact */
-.contact {
-  padding: clamp(4rem, 8vw, 6rem) clamp(2rem, 6vw, 4rem);
-  background: var(--snow-deep);
-  text-align: center;
-}
-
-.contact-title {
-  font-family: "Noto Serif SC", serif;
-  font-size: var(--fs-h2);
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 2.5rem;
-}
-
-.contact-grid {
-  display: flex;
-  justify-content: center;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  flex-wrap: wrap;
-  max-width: 550px;
-  margin: 0 auto;
-}
-
-.contact-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 1.5rem 2rem;
-  text-decoration: none;
-  color: var(--ink);
-  background: var(--snow);
-  border-radius: 2px;
-  min-width: 140px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-}
-
-.contact-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid transparent;
-  border-radius: 2px;
-  transition: border-color 0.4s;
-}
-
-.contact-card:hover::after { border-color: var(--lavender-light); }
-.contact-card:hover { transform: translateY(-3px); }
-
-.contact-card svg { width: 22px; height: 22px; color: var(--lavender); }
-.contact-card-label {
-  font-size: var(--fs-small);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 500;
-  color: var(--ink-light);
-}
-.contact-card-value {
-  font-size: 0.95rem;
-  font-weight: 500;
-}
-
-/* Footer */
-.footer {
-  padding: clamp(2rem, 4vw, 3rem);
-  text-align: center;
-  font-size: var(--fs-small);
-  color: var(--ink-light);
-  opacity: 0.4;
-  background: var(--snow);
-}
-
-/* Reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.delay-1 { transition-delay: 0.12s; }
-.delay-2 { transition-delay: 0.24s; }
-.delay-3 { transition-delay: 0.36s; }
-
-@media (max-width: 768px) {
-  .profile-inner {
-    grid-template-columns: 1fr;
-    text-align: center;
-    justify-items: center;
-  }
-  .profile-loc { justify-content: center; }
-  .kanji-strip { gap: 1.5rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-  html { scroll-behavior: auto; }
-  #snowCanvas { display: none; }
+.contact-row .ci{width:44px;height:44px;border-radius:12px;background:#f0ece6;color:var(--lavender-deep);
+  display:flex;align-items:center;justify-content:center;flex:none}
+.contact-row .ci svg{width:22px;height:22px}
+.contact-row .cl{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-light)}
+.contact-row .cv{font-size:15px;font-weight:500}
+.contact-row .go{margin-left:auto;color:#c8c8c8;font-size:18px}
+/* music player */
+.player-art{width:100%;aspect-ratio:1;border-radius:18px;overflow:hidden;margin:4px 0 20px;box-shadow:0 18px 40px rgba(60,40,90,.25)}
+.player-art img{width:100%;height:100%;object-fit:cover;display:block}
+.player-track{font-size:21px;font-weight:600;text-align:center}
+.player-artist{font-size:13px;color:var(--ink-light);text-align:center;margin:6px 0 22px;letter-spacing:.08em}
+.progress{height:5px;border-radius:3px;background:rgba(0,0,0,.1);overflow:hidden;cursor:pointer}
+.progress i{display:block;height:100%;width:0%;background:var(--lavender-deep);border-radius:3px}
+.time-row{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-light);margin:8px 0 20px}
+.player-controls{display:flex;align-items:center;justify-content:center;gap:34px}
+.play-btn{width:72px;height:72px;border-radius:50%;background:var(--ink);color:#fff;font-size:24px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.player-note{text-align:center;font-size:12px;color:var(--ink-light);margin-top:20px;letter-spacing:.06em}
+.foot{font-size:12px;color:var(--ink-light);opacity:.55;text-align:center;margin-top:26px}
+@media (prefers-reduced-motion:reduce){
+  .screen,.app-view{transition:none}
+  #snowCanvas{display:none}
+  .lock-swipe{animation:none}
 }
 </style>
 </head>
 <body>
-
-<canvas id="snowCanvas"></canvas>
-
-<nav class="nav" id="nav">
-  <span class="nav-logo">北海道<span class="dot"></span></span>
-  <button class="music-btn" id="musicBtn" aria-label="音乐">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-    </svg>
-  </button>
-</nav>
-
-<section class="hero" id="top">
-  <div class="hero-content">
-    <p class="hero-pre reveal">HOKKAIDO</p>
-    <h1 class="hero-name reveal delay-1">
-      清醒<span class="hl">自持</span>
-    </h1>
-    <p class="hero-sub reveal delay-2">
-      Journey Yields Crescent<br>
-      不以物喜，不以己悲。
-    </p>
-  </div>
-
-  <!-- Mountain silhouette -->
-  <div class="mountain" aria-hidden="true">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <path d="M0,320 L0,180 L120,140 L200,160 L260,100 L320,120 L380,80 L440,110 L500,60 L560,100 L620,50 L680,100 L740,40 L800,80 L860,30 L920,70 L980,20 L1040,65 L1100,35 L1160,70 L1200,45 L1260,85 L1320,55 L1380,90 L1440,50 L1440,320 Z" fill="#d4c8dc" opacity="0.4"/>
-      <path d="M0,320 L0,220 L140,180 L240,210 L300,160 L380,200 L440,130 L520,185 L580,120 L650,170 L710,100 L780,160 L840,80 L920,140 L980,70 L1060,130 L1120,60 L1200,115 L1280,65 L1360,110 L1440,55 L1440,320 Z" fill="#c4b8cc" opacity="0.5"/>
-      <path d="M0,320 L0,270 L160,240 L280,265 L360,220 L450,255 L530,200 L620,240 L700,185 L790,225 L870,170 L960,210 L1040,160 L1130,200 L1220,155 L1320,195 L1440,150 L1440,320 Z" fill="#f0ece6" opacity="0.8"/>
-    </svg>
-  </div>
-
-  <div class="mist" aria-hidden="true"></div>
-
-  <div class="scroll-hint" onclick="document.getElementById('profile').scrollIntoView({behavior:'smooth'})">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 13l5 5 5-5"/></svg>
-    <span>往下</span>
-  </div>
-</section>
-
-<section class="profile" id="profile">
-  <div class="profile-inner">
-    <div class="profile-photo reveal">
-      <img src="JYC.jpg" alt="JYC" loading="lazy">
+<div class="stage">
+  <div class="phone" id="phone">
+    <div class="wallpaper" aria-hidden="true">
+      <div class="crescent"></div>
+      <div class="mountain">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <path d="M0,320 L0,180 L120,140 L200,160 L260,100 L320,120 L380,80 L440,110 L500,60 L560,100 L620,50 L680,100 L740,40 L800,80 L860,30 L920,70 L980,20 L1040,65 L1100,35 L1160,70 L1200,45 L1260,85 L1320,55 L1380,90 L1440,50 L1440,320 Z" fill="#d4c8dc" opacity="0.35"/>
+          <path d="M0,320 L0,220 L140,180 L240,210 L300,160 L380,200 L440,130 L520,185 L580,120 L650,170 L710,100 L780,160 L840,80 L920,140 L980,70 L1060,130 L1120,60 L1200,115 L1280,65 L1360,110 L1440,55 L1440,320 Z" fill="#c4b8cc" opacity="0.45"/>
+          <path d="M0,320 L0,270 L160,240 L280,265 L360,220 L450,255 L530,200 L620,240 L700,185 L790,225 L870,170 L960,210 L1040,160 L1130,200 L1220,155 L1320,195 L1440,150 L1440,320 Z" fill="#f0ece6" opacity="0.85"/>
+        </svg>
+      </div>
     </div>
-    <div class="profile-text">
-      <h2 class="reveal delay-1">Journey Yields Crescent</h2>
-      <div class="profile-loc reveal delay-1">上海 · SHANGHAI</div>
-      <p class="profile-desc reveal delay-2">
-        走过漫长独行的路途，<br>
-        温柔且有锋芒。<br>
-        所有沉淀与奔赴，<br>
-        终会迎来属于自己的弯月星光。
-      </p>
+    <canvas id="snowCanvas"></canvas>
+    <div class="island" aria-hidden="true"></div>
+
+    <div class="statusbar">
+      <span class="sb-time" id="sbTime">--:--</span>
+      <span class="sb-icons" aria-hidden="true">
+        <svg width="17" height="11" viewBox="0 0 17 11" fill="#fff"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+        <svg width="16" height="11" viewBox="0 0 16 12" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.2a10 10 0 0 1 13 0M4 7a6.5 6.5 0 0 1 8 0M6.6 9.6a3 3 0 0 1 2.8 0"/><circle cx="8" cy="11" r=".9" fill="#fff" stroke="none"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#fff"/><path d="M23.5 4v4a2.2 2.2 0 0 0 0-4Z" fill="#fff" opacity=".5"/></svg>
+      </span>
+    </div>
+
+    <!-- Lock screen -->
+    <section class="screen" id="lockScreen" role="button" aria-label="点击进入主屏幕" tabindex="0">
+      <div class="lock-date" id="lockDate">--月--日 星期--</div>
+      <div class="lock-time" id="lockTime">--:--</div>
+      <div class="lock-avatar"><img src="JYC.jpg" alt="JYC"></div>
+      <div class="lock-name serif">Journey Yields Crescent</div>
+      <div class="lock-sub">Hokkaido</div>
+      <div class="lock-enter">
+        <div class="lock-pill">进入小灶</div>
+        <div class="lock-swipe">上 滑 进 入 ⌃</div>
+      </div>
+    </section>
+
+    <!-- Home screen -->
+    <section class="screen" id="homeScreen">
+      <div class="home-scroll">
+        <div class="widget">
+          <div class="w-pre">HOKKAIDO</div>
+          <div class="w-title serif">清醒<span class="hl">自持</span></div>
+          <div class="w-sub">Journey Yields Crescent<span class="en">不以物喜，不以己悲。</span></div>
+        </div>
+
+        <div class="app-grid">
+          <button class="app" data-app="hero">
+            <span class="app-icon tint-lav"><span class="glyph">清</span></span>
+            <span class="app-label">清醒</span>
+          </button>
+          <button class="app" data-app="about">
+            <span class="app-icon"><img src="JYC.jpg" alt="关于我"></span>
+            <span class="app-label">关于我</span>
+          </button>
+          <button class="app" data-app="quote">
+            <span class="app-icon tint-dark"><span class="glyph">❅</span></span>
+            <span class="app-label">语录</span>
+          </button>
+          <button class="app" data-app="kanji">
+            <span class="app-icon tint-moon"><span class="glyph">月</span></span>
+            <span class="app-label">静雪月风</span>
+          </button>
+          <button class="app" data-app="photo">
+            <span class="app-icon tint-blue"><span class="glyph">◐</span></span>
+            <span class="app-label">相册</span>
+          </button>
+          <button class="app" data-app="music">
+            <span class="app-icon tint-green"><span class="glyph">♫</span><span class="badge" id="musicBadge" hidden>1</span></span>
+            <span class="app-label">音乐</span>
+          </button>
+          <button class="app" data-app="contact">
+            <span class="app-icon tint-pink"><span class="glyph">@</span></span>
+            <span class="app-label">联系</span>
+          </button>
+          <button class="app" data-app="hokkaido">
+            <span class="app-icon tint-dark"><span class="glyph">❄</span></span>
+            <span class="app-label">北海道</span>
+          </button>
+        </div>
+
+        <div class="page-dots"><i class="on"></i><i></i></div>
+
+        <div class="mini-player" id="miniPlayer">
+          <img src="JYC.jpg" alt="">
+          <div class="mp-text">
+            <div class="mp-title">风犬少年的天空</div>
+            <div class="mp-sub">Journey Yields Crescent</div>
+          </div>
+          <button class="mp-btn" id="miniPlayBtn" aria-label="播放或暂停">▶</button>
+        </div>
+      </div>
+
+      <div class="dock">
+        <button class="app" data-app="about"><span class="app-icon"><img src="JYC.jpg" alt="关于我"></span></button>
+        <button class="app" data-app="music"><span class="app-icon tint-green"><span class="glyph">♫</span></span></button>
+        <button class="app" data-app="photo"><span class="app-icon tint-blue"><span class="glyph">◐</span></span></button>
+        <button class="app" data-app="contact"><span class="app-icon tint-pink"><span class="glyph">@</span></span></button>
+      </div>
+    </section>
+
+    <!-- App windows -->
+    <div class="app-view" id="appView" aria-hidden="true">
+      <div class="app-bar">
+        <span class="ab-spacer"></span>
+        <span class="ab-title" id="appTitle">应用</span>
+        <button class="ab-close" id="appClose" aria-label="关闭">✕</button>
+      </div>
+      <div class="app-body" id="appBody"></div>
     </div>
   </div>
-</section>
+  <div class="stage-hint">点 击 进 入 · 点 图 标 打 开 应 用</div>
+</div>
 
-<section class="quote-section">
-  <div class="quote-ornament reveal">❅</div>
-  <p class="quote-text reveal delay-1">
-    「慢慢来，一切皆有回音。」
-  </p>
-  <div class="quote-divider reveal delay-2"></div>
-  <p class="quote-attr reveal delay-2">风犬少年的天空</p>
-</section>
-
-<section class="kanji-strip">
-  <div class="kanji-item reveal">
-    <div class="kanji-char">静</div>
-    <div class="kanji-reading">静けさ</div>
-  </div>
-  <div class="kanji-item reveal delay-1">
-    <div class="kanji-char">雪</div>
-    <div class="kanji-reading">ゆき</div>
-  </div>
-  <div class="kanji-item reveal delay-2">
-    <div class="kanji-char">月</div>
-    <div class="kanji-reading">つき</div>
-  </div>
-  <div class="kanji-item reveal delay-3">
-    <div class="kanji-char">風</div>
-    <div class="kanji-reading">かぜ</div>
-  </div>
-</section>
-
-<section class="contact" id="contact">
-  <h2 class="contact-title reveal">連絡</h2>
-  <div class="contact-grid">
-    <a href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener" class="contact-card reveal">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/>
-      </svg>
-      <span class="contact-card-label">Instagram</span>
-      <span class="contact-card-value">aeo.ju</span>
-    </a>
-    <div class="contact-card reveal delay-1">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M8 10.5h8M8 14h5M6 5h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2z"/>
-      </svg>
-      <span class="contact-card-label">微信</span>
-      <span class="contact-card-value">aeo_cn</span>
-    </div>
-    <a href="mailto:apero.ju@gmail.com" class="contact-card reveal delay-2">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/>
-      </svg>
-      <span class="contact-card-label">Email</span>
-      <span class="contact-card-value">apero.ju@gmail.com</span>
-    </a>
-  </div>
-</section>
-
-<footer class="footer">
-  &copy; 2026 jujujuhappy.win
-</footer>
-
-<audio id="bgm" src="JYC.mp3" loop preload="none"></audio>
+<audio id="bgm" src="JYC.mp3" loop preload="metadata"></audio>
 
 <script>
-// Snowfall
-const canvas = document.getElementById('snowCanvas');
-const ctx = canvas.getContext('2d');
-let flakes = [];
-const maxFlakes = 60;
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+// ---- live clock ----
+const WEEK=["日","一","二","三","四","五","六"];
+function tick(){
+  const d=new Date();
+  const hh=String(d.getHours()).padStart(2,"0"), mm=String(d.getMinutes()).padStart(2,"0");
+  document.getElementById("sbTime").textContent=hh+":"+mm;
+  document.getElementById("lockTime").textContent=hh+":"+mm;
+  document.getElementById("lockDate").textContent=(d.getMonth()+1)+"月"+d.getDate()+"日 星期"+WEEK[d.getDay()];
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+tick(); setInterval(tick,10000);
 
-class Flake {
-  constructor() {
-    this.reset(true);
-  }
-  reset(init) {
-    this.x = Math.random() * canvas.width;
-    this.y = init ? Math.random() * canvas.height : -10;
-    this.r = Math.random() * 2.5 + 1;
-    this.opacity = Math.random() * 0.5 + 0.3;
-    this.speed = Math.random() * 0.6 + 0.2;
-    this.wind = Math.random() * 0.4 - 0.2;
-  }
-  update() {
-    this.y += this.speed;
-    this.x += this.wind + Math.sin(this.y * 0.02) * 0.3;
-    if (this.y > canvas.height + 10) { this.y = -10; this.x = Math.random() * canvas.width; }
-    if (this.x > canvas.width + 10) this.x = -10;
-    if (this.x < -10) this.x = canvas.width + 10;
-  }
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${this.opacity})`;
-    ctx.fill();
-  }
+// ---- snow (inside phone only) ----
+const canvas=document.getElementById("snowCanvas"), ctx=canvas.getContext("2d");
+const phone=document.getElementById("phone");
+let flakes=[];
+function resizeCanvas(){
+  canvas.width=phone.clientWidth; canvas.height=phone.clientHeight;
+  flakes=Array.from({length:45},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,
+    r:Math.random()*2.2+0.8,o:Math.random()*0.5+0.3,s:Math.random()*0.6+0.2,w:Math.random()*0.4-0.2}));
 }
+resizeCanvas(); window.addEventListener("resize",resizeCanvas);
+(function snow(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  flakes.forEach(f=>{f.y+=f.s; f.x+=f.w+Math.sin(f.y*0.02)*0.3;
+    if(f.y>canvas.height+10){f.y=-10;f.x=Math.random()*canvas.width;}
+    ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+    ctx.fillStyle="rgba(255,255,255,"+f.o+")"; ctx.fill();});
+  requestAnimationFrame(snow);
+})();
 
-for (let i = 0; i < maxFlakes; i++) flakes.push(new Flake());
-
-function animateSnow() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  flakes.forEach(f => { f.update(); f.draw(); });
-  requestAnimationFrame(animateSnow);
+// ---- lock -> home ----
+const lock=document.getElementById("lockScreen"), home=document.getElementById("homeScreen");
+let startY=null;
+function unlock(){
+  lock.classList.add("hidden"); home.classList.add("show");
 }
-animateSnow();
+lock.addEventListener("click",unlock);
+lock.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();unlock();}});
+lock.addEventListener("touchstart",e=>{startY=e.touches[0].clientY;},{passive:true});
+lock.addEventListener("touchend",e=>{
+  if(startY!==null && startY-e.changedTouches[0].clientY>40) unlock();
+  startY=null;
+},{passive:true});
 
-// Nav scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
+// ---- apps ----
+const ICON_SVG={
+  ig:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>',
+  wx:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 10.5h8M8 14h5M6 5h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg>',
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>'
+};
+const APPS={
+  hero:{title:"清醒",html:'<div class="center"><p class="pre">Hokkaido</p><div class="hero-big">清醒<span class="hl">自持</span></div><p style="margin-top:18px">Journey Yields Crescent<br>不以物喜，不以己悲。</p></div>'},
+  about:{title:"关于我",html:'<div class="photo"><img src="JYC.jpg" alt="JYC"></div><h2>Journey Yields Crescent</h2><div class="loc">上海 · SHANGHAI</div><p>走过漫长独行的路途，<br>温柔且有锋芒。<br>所有沉淀与奔赴，<br>终会迎来属于自己的弯月星光。</p>'},
+  quote:{title:"语录",html:'<div class="center"><div class="quote-mark">❅</div><p class="quote">「慢慢来，一切皆有回音。」</p><div class="divider"></div><p class="attr">风犬少年的天空</p></div>'},
+  kanji:{title:"静雪月风",html:'<div class="kanji-row"><div class="kanji-cell"><div class="kc">静</div><div class="kr">静けさ</div></div><div class="kanji-cell"><div class="kc">雪</div><div class="kr">ゆき</div></div><div class="kanji-cell"><div class="kc">月</div><div class="kr">つき</div></div><div class="kanji-cell"><div class="kc">風</div><div class="kr">かぜ</div></div></div><p class="center" style="margin-top:10px">静 · 雪 · 月 · 風</p>'},
+  photo:{title:"相册",html:'<div class="photo"><img src="JYC.jpg" alt="JYC"></div><p class="center">JYC — 上海 · 夜</p>'},
+  music:{title:"音乐",html:'<div class="player-art"><img src="JYC.jpg" alt="风犬少年的天空"></div><div class="player-track">风犬少年的天空</div><div class="player-artist">Journey Yields Crescent</div><div class="progress" id="progress"><i id="progressFill"></i></div><div class="time-row"><span id="curTime">0:00</span><span id="durTime">0:00</span></div><div class="player-controls"><button class="play-btn" id="bigPlayBtn" aria-label="播放或暂停">▶</button></div><p class="player-note">点 ▶ 播放 · 循环播放</p>'},
+  contact:{title:"联系",html:'<h2>連絡</h2><div class="contact-list"><a class="contact-row" href="https://www.instagram.com/aeo.ju" target="_blank" rel="noopener"><span class="ci">'+ICON_SVG.ig+'</span><span><span class="cl">Instagram</span><br><span class="cv">aeo.ju</span></span><span class="go">›</span></a><div class="contact-row"><span class="ci">'+ICON_SVG.wx+'</span><span><span class="cl">微信</span><br><span class="cv">aeo_cn</span></span></div><a class="contact-row" href="mailto:apero.ju@gmail.com"><span class="ci">'+ICON_SVG.mail+'</span><span><span class="cl">Email</span><br><span class="cv">apero.ju@gmail.com</span></span><span class="go">›</span></a></div><p class="foot">© 2026 jujujuhappy.win</p>'},
+  hokkaido:{title:"北海道",html:'<div class="center"><p class="pre">Hokkaido</p><h2>北海道</h2><p>Journey Yields Crescent<br>清醒自持 · 不以物喜，不以己悲。</p><p class="foot">© 2026 jujujuhappy.win</p></div>'}
+};
+const view=document.getElementById("appView"),
+      appTitle=document.getElementById("appTitle"),
+      appBody=document.getElementById("appBody");
+function openApp(name){
+  const a=APPS[name]; if(!a) return;
+  appTitle.textContent=a.title; appBody.innerHTML=a.html;
+  appBody.scrollTop=0; view.classList.add("open"); view.setAttribute("aria-hidden","false");
+  if(name==="music") bindPlayer();
+}
+function closeApp(){ view.classList.remove("open"); view.setAttribute("aria-hidden","true"); }
+document.querySelectorAll("[data-app]").forEach(b=>b.addEventListener("click",()=>openApp(b.dataset.app)));
+document.getElementById("appClose").addEventListener("click",closeApp);
+
+// ---- music ----
+const bgm=document.getElementById("bgm");
+const miniPlayer=document.getElementById("miniPlayer"),
+      miniPlayBtn=document.getElementById("miniPlayBtn"),
+      musicBadge=document.getElementById("musicBadge");
+let playing=false;
+function fmt(s){ if(!isFinite(s)) return "0:00"; s=Math.floor(s); return Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }
+function syncUI(){
+  const big=document.getElementById("bigPlayBtn");
+  if(big) big.textContent=playing?"❚❚":"▶";
+  miniPlayBtn.textContent=playing?"❚❚":"▶";
+  miniPlayer.classList.toggle("show",playing);
+  musicBadge.hidden=!playing;
+}
+function togglePlay(){
+  if(playing){ bgm.pause(); playing=false; syncUI(); }
+  else{ bgm.play().then(()=>{playing=true; syncUI();}).catch(()=>{}); }
+}
+function bindPlayer(){
+  const big=document.getElementById("bigPlayBtn");
+  if(big) big.addEventListener("click",togglePlay);
+  const bar=document.getElementById("progress");
+  if(bar) bar.addEventListener("click",e=>{
+    const r=bar.getBoundingClientRect();
+    if(bgm.duration) bgm.currentTime=((e.clientX-r.left)/r.width)*bgm.duration;
+  });
+  syncUI();
+}
+miniPlayBtn.addEventListener("click",togglePlay);
+bgm.addEventListener("timeupdate",()=>{
+  const f=document.getElementById("progressFill");
+  if(f && bgm.duration) f.style.width=(bgm.currentTime/bgm.duration*100)+"%";
+  const c=document.getElementById("curTime"); if(c) c.textContent=fmt(bgm.currentTime);
 });
-
-// Music
-const musicBtn = document.getElementById('musicBtn');
-const bgm = document.getElementById('bgm');
-let playing = false;
-musicBtn.addEventListener('click', () => {
-  if (playing) { bgm.pause(); musicBtn.classList.remove('playing'); playing = false; }
-  else { bgm.play().then(() => { musicBtn.classList.add('playing'); playing = true; }).catch(() => {}); }
+bgm.addEventListener("loadedmetadata",()=>{
+  const d=document.getElementById("durTime"); if(d) d.textContent=fmt(bgm.duration);
 });
-
-// Reveal
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+bgm.addEventListener("ended",()=>{playing=false; syncUI();});
 </script>
 </body>
 </html>
