@@ -97,6 +97,10 @@ a{color:inherit;text-decoration:none}
 .app-icon .glyph{font-family:"Noto Serif SC",serif;font-weight:700;position:relative;z-index:1;text-shadow:0 1px 6px rgba(0,0,0,.25)}
 .app-icon svg{width:34px;height:34px;display:block;position:relative;z-index:1}
 .app-icon.t-white{background:linear-gradient(180deg,#ffffff,#f2f2f7)}
+.app-icon.t-black{background:linear-gradient(145deg,#17171b,#000)}
+/* 黑底图标少盖一层玻璃高光，否则在粉色 Dock 里会发灰发粉 */
+.app-icon.t-black::before{background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.03) 34%,transparent 58%)}
+.app-icon.t-black::after{background:linear-gradient(0deg,rgba(255,255,255,.08),transparent)}
 .app-icon.t-ig{background:#000}
 .app-icon.t-red{background:linear-gradient(145deg,#f66a5e,#dd2f2a)}
 .app-icon.t-pink{background:linear-gradient(145deg,#f78dab,#ec6a94)}
